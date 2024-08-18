@@ -1,0 +1,146 @@
+/* Potential Theme Colors*/
+/* #cfe8ef */
+/* c6dbf0 */
+/* aed1e6 */
+/* a0c4e2 */
+/* 43849c */
+
+
+:root {
+  --primay: white;
+
+  /* --bg-primay: ; */
+
+  --link: #2a0b0b;
+}
+
+
+
+.App {
+  text-align: center;
+  background-color: #43849c;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+p {
+  margin: 20px 0px;
+}
+
+.header {
+  font-size: 3rem;
+}
+
+.body {
+  margin: 20px 0 10px;
+  font-size: 0.9rem;
+}
+
+button {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 35px;
+
+  background: #845ec2;
+  color: white;
+}
+
+textarea{
+  border: none;
+  font-size: large;
+  width: 450px;
+  height: 200px;
+  overflow: auto;
+  resize: none;
+}
+textarea:focus{
+  border: none;
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background: var(--bg-primay);
+  color: var(--primay);
+}
+
+
+
+.App-link {
+  color: #61dafb;
+  color: var(--link);
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  font-size: calc(10px + 2vmin);
+}
+
+.navLink{
+  background-color: #94bdde;
+  padding: 7px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  color: white;
+  text-decoration: none;
+  font-size: large;
+}
+
+li{
+  display: inline;
+  padding: 8px;
+  float: right;
+}
+
+br{
+  background-color: white;
+  width: 100%;
+}
+
+#titleWrap{
+  float: left;
+ 
+}
+
+#titleLink{
+  font-size: larger;
+  font-weight: bold;
+  background: none;
+}
+
+#navbar{
+  width: 100%;
+  border-bottom-color: white;
+  border-bottom-width: 2px;
+  border: solid;
+  display: inline;
+  padding: 5px;
+  /* align-content: center;  */
+}
