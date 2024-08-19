@@ -26,7 +26,7 @@ module.exports = {
   ],
   plugins: ['simple-import-sort', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': ['error', { semi: true }],
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/accessible-emoji': 'off',
     'react/prop-types': 'off',
@@ -45,4 +45,4 @@ module.exports = {
     'comma-dangle': 'off', // Prettier handles this
     curly: 'off', // Prettier handles this
   },
-}
+};

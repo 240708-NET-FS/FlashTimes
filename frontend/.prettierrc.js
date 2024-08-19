@@ -1,12 +1,12 @@
 module.exports = {
-  semi: false,
+  semi: true,
   trailingComma: 'all',
   singleQuote: true,
   printWidth: 80,
   tabWidth: 2,
   bracketSameLine: true,
   endOfLine: 'lf',
-}
+};
 
 // {
 //   "arrowParens": "always",

@@ -5,7 +5,6 @@
 /* a0c4e2 */
 /* 43849c */
 
-
 :root {
   --primay: white;
 
@@ -13,8 +12,6 @@
 
   --link: #2a0b0b;
 }
-
-
 
 .App {
   text-align: center;
@@ -50,7 +47,7 @@ button {
   color: white;
 }
 
-textarea{
+textarea {
   border: none;
   font-size: large;
   width: 450px;
@@ -58,7 +55,7 @@ textarea{
   overflow: auto;
   resize: none;
 }
-textarea:focus{
+textarea:focus {
   border: none;
   outline: none;
 }
@@ -81,8 +78,6 @@ textarea:focus{
   color: var(--primay);
 }
 
-
-
 .App-link {
   color: #61dafb;
   color: var(--link);
@@ -101,7 +96,7 @@ button {
   font-size: calc(10px + 2vmin);
 }
 
-.navLink{
+.navLink {
   background-color: #94bdde;
   padding: 7px;
   margin: auto;
@@ -113,29 +108,28 @@ button {
   font-size: large;
 }
 
-li{
+li {
   display: inline;
   padding: 8px;
   float: right;
 }
 
-br{
+br {
   background-color: white;
   width: 100%;
 }
 
-#titleWrap{
+#titleWrap {
   float: left;
- 
 }
 
-#titleLink{
+#titleLink {
   font-size: larger;
   font-weight: bold;
   background: none;
 }
 
-#navbar{
+#navbar {
   width: 100%;
   border-bottom-color: white;
   border-bottom-width: 2px;

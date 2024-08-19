@@ -1,34 +1,41 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
 
-import React, { createContext, useState } from 'react'
-import Landing from './pages/LandingPage/Landing'
-import SignUp from './pages/SignUpPage/SignIn'
-import Home from './pages/HomePage/Home'
+import React, { createContext, useState } from 'react';
+import Landing from './pages/LandingPage/Landing';
+import SignUp from './pages/SignUpPage/SignIn';
+import Home from './pages/HomePage/Home';
 
 export const UserContext = React.createContext<null | any>(null);
 
 function App() {
-
   // TODO: find a better way to type safe this thing
   const [user, setUser] = useState<null | any>(null);
 
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  // when user auths in 
+  // when user auths in
 
   return (
     <div className="App" data-testid="app-page">
-      <UserContext.Provider value={{user: user, setUser}}>
-        <header className='App-header'>
-          <div style={{width: '50%', display:'inherit'}}>
-              <ul id="navbar">
-                <li id="titleWrap"><a id="titleLink" className="navLink" href="/">FlashTimes</a></li>
-                <li><a className="navLink" href="/sign-in">Sign In</a></li>
-                {/* <li><a className="navLink" href="/">Landing</a></li> */}
-              </ul>
+      <UserContext.Provider value={{ user: user, setUser }}>
+        <header className="App-header">
+          <div style={{ width: '50%', display: 'inherit' }}>
+            <ul id="navbar">
+              <li id="titleWrap">
+                <a id="titleLink" className="navLink" href="/">
+                  FlashTimes
+                </a>
+              </li>
+              <li>
+                <a className="navLink" href="/sign-in">
+                  Sign In
+                </a>
+              </li>
+              {/* <li><a className="navLink" href="/">Landing</a></li> */}
+            </ul>
           </div>
-        
+
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Landing />} />
@@ -36,11 +43,9 @@ function App() {
               <Route path="/home/:username" element={<Home />} />
             </Routes>
           </BrowserRouter>
-
         </header>
       </UserContext.Provider>
-      
-      
+
       {/* <header className="App-header">
         <p className="header">
           🚀 Vite + React + Typescript + React Testing Library 🤘 <br />& Eslint
@@ -80,7 +85,7 @@ function App() {
         </div>
       </header> */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
