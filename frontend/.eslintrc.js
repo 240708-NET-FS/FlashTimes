@@ -26,7 +26,7 @@ module.exports = {
   ],
   plugins: ['simple-import-sort', 'prettier'],
   rules: {
-    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/accessible-emoji': 'off',
     'react/prop-types': 'off',
@@ -41,5 +41,8 @@ module.exports = {
         aspects: ['invalidHref', 'preferButton'],
       },
     ],
+    'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
+    'comma-dangle': 'off', // Prettier handles this
+    curly: 'off', // Prettier handles this
   },
 }
