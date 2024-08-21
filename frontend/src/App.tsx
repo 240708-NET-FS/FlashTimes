@@ -1,11 +1,12 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 
 import React, { createContext, useState } from 'react';
-import Landing from './pages/LandingPage/Landing';
-import SignUp from './pages/SignUpPage/SignIn';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+
 import Home from './pages/HomePage/Home';
+import Landing from './pages/LandingPage/Landing';
 import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignIn';
 
 export const UserContext = React.createContext<null | any>(null);
 
@@ -22,49 +23,42 @@ function App() {
   const navigate = useNavigate();
 
   const navigateTo = (route: string) => {
-      navigate(route);
-
-  }
-
+    navigate(route);
+  };
 
   const changeTextColor = (e: any) => {
-    var navTitle = document.getElementById("titleLink");
-    if(navTitle){
-      if(e.type === "mouseover") {
+    var navTitle = document.getElementById('titleLink');
+    if (navTitle) {
+      if (e.type === 'mouseover') {
         navTitle.style.backgroundColor = '#94bdde';
-      }else{
+      } else {
         navTitle.style.backgroundColor = 'transparent';
       }
     }
-    
-    
-  }
+  };
 
   return (
     <div className="App" data-testid="app-page">
       <UserContext.Provider value={{ user: user, setUser }}>
         <header className="App-header">
           {/* potentially make a navbar component */}
-          <div id="navbar-pos"style={{ width: '50%', display: 'inherit' }}>
+          <div id="navbar-pos" style={{ width: '50%', display: 'inherit' }}>
             <ul id="navbar">
               <li id="titleWrap">
-                <a id="titleLink" 
-                  className="navLink" 
-                  
-                  onMouseOver={changeTextColor} 
-                  onMouseOut={changeTextColor} 
-                  onClick={()=> navigateTo("/")}
-                  >
+                <a
+                  id="titleLink"
+                  className="navLink"
+                  onMouseOver={changeTextColor}
+                  onMouseOut={changeTextColor}
+                  onClick={() => navigateTo('/')}>
                   FlashTimes
                 </a>
               </li>
               <li>
-                <a 
-                  className="navLink" 
+                <a
+                  className="navLink"
                   // href="/sign-up"
-                  onClick={()=> navigateTo("/sign-up")}
-
-                  >
+                  onClick={() => navigateTo('/sign-up')}>
                   Sign Up
                 </a>
               </li>
@@ -72,14 +66,14 @@ function App() {
             </ul>
           </div>
 
-            <div style={{backgroundColor: '#43849c'}}>
+          <div style={{ backgroundColor: '#43849c' }}>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home/:username" element={<Home />} />
               <Route path="/login" element={<Login />} />
             </Routes>
-            </div>
+          </div>
         </header>
       </UserContext.Provider>
 

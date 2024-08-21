@@ -14,7 +14,11 @@
     "skipLibCheck": false,
     "strict": true,
     "target": "ESNext",
-    "types": ["vite"]
+    "types": ["vite"],
+    "baseUrl": "./src",
+    "paths": {
+      "@services/*": ["services/*"]
+    }
   },
   "include": ["./src"],
   "exclude": ["node_modules"]
