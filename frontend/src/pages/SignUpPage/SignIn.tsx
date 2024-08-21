@@ -1,7 +1,10 @@
 import React from 'react';
+import SignUpBox from './components/SignUpBox';
 
 const SignIn = () => {
-  return <div>Sign Up!</div>;
+  return (
+    <SignUpBox />
+  )
 };
 
 export default SignIn;

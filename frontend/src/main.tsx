@@ -2,7 +2,7 @@ import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
 import Landing from './pages/LandingPage/Landing';
@@ -26,7 +26,10 @@ const router = createBrowserRouter([
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+
+    </BrowserRouter>
     {/* <RouterProvider router={router} /> */}
   </React.StrictMode>,
   document.getElementById('root'),

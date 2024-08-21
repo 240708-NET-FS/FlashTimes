@@ -8,7 +8,7 @@
 :root {
   --primay: white;
 
-  /* --bg-primay: ; */
+  --bg-primay: #43849c;
 
   --link: #2a0b0b;
 }
@@ -16,7 +16,11 @@
 .App {
   text-align: center;
   background-color: #43849c;
-  font-family: 'Courier New', Courier, monospace;
+}
+
+*{
+    font-family: 'Courier New', Courier, monospace;
+
 }
 
 .App-logo {
@@ -37,7 +41,7 @@ p {
   font-size: 0.9rem;
 }
 
-button {
+/* button {
   outline: none;
   border: none;
   border-radius: 8px;
@@ -45,7 +49,7 @@ button {
 
   background: #845ec2;
   color: white;
-}
+} */
 
 textarea {
   border: none;
@@ -106,6 +110,7 @@ button {
   color: white;
   text-decoration: none;
   font-size: large;
+  cursor: pointer;
 }
 
 li {
@@ -127,6 +132,7 @@ br {
   font-size: larger;
   font-weight: bold;
   background: none;
+  cursor: pointer;
 }
 
 #navbar {
@@ -136,5 +142,55 @@ br {
   border: solid;
   display: inline;
   padding: 5px;
+  position: relative;
   /* align-content: center;  */
+}
+
+#navbar-pos{
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  /* top: 25; */
+}
+
+.textBox{
+  /* outline: none; */
+  padding: 5px;
+  /* border: none; */
+  border-width: 1px;
+  border-radius: 7px;
+  width: 200px;
+  height: 25px;
+
+  /* border: grey 1; */
+  /* border-radius: 3px; */
+
+}
+
+.submitBox{
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+}
+
+.submitBox:active{
+  background-color: #cfe8ef;
+  color: #43849c;
+}
+
+.submitBox:hover{
+  background-color: #cfe8ef;
+  color: #43849c;
+
+}
+
+.pText{
+  font-size: 14px;
+}
+
+
+#loginButton{
+  background-color: none;
+  outline: none;
 }
