@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-import { User } from '../types/types';
+import { UserRegistrationDTO, UserRegistrationResponseDTO } from '../types/types';
 
 // function to register a user
-export const registerUser = async (user: Partial<User>) => {
-  const response = await axios.post('/api/users/register', user);
-  return response.data;
+export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegistrationResponseDTO> => {
+  try {
+    const response = await axios.post<UserRegistrationResponseDTO>('/api/users/register', user);
+    return response.data;
+  } catch (error) {
+    throw new Error('Registration failed: ' + (error as any).response?.data?.message || 'Unknown error');
+  }
 };
 
 // export const loginUser = async (credentials: {

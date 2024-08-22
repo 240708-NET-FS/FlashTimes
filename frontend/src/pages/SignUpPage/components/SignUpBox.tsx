@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const SignUpBox = ({}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const signUpBox = {
-    width: 250,
-    height: 250,
+    minWidth: 250,
+    minHeight: 250,
     backgroundColor: 'white',
     color: 'black',
     padding: 20,
@@ -33,7 +35,7 @@ const SignUpBox = ({}) => {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const newUser = { userName: username, password };
+      const newUser = { firstName, lastName, userName: username, password };
       await registerUser(newUser);
       alert('User registered successfully!');
       navigate('/login');
@@ -50,23 +52,23 @@ const SignUpBox = ({}) => {
         </div>
         <div className="flex">
           <form onSubmit={handleSignUp} className="flex flex-col">
-            <div style={{ padding: 2 }}>
+            <div className="mb-2">
               <input
                 className="textBox"
                 type="text"
-                placeholder="Enter Username: "
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
+            <div className="mb-2">
+              <input className="textBox" type="text" placeholder="Enter Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            </div>
             <div style={{ padding: 2 }}>
-              <input
-                className="textBox"
-                type="text"
-                placeholder="Enter Password: "
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input className="textBox" type="text" placeholder="Enter Username: " value={username} onChange={(e) => setUsername(e.target.value)} />
+            </div>
+            <div style={{ padding: 2 }}>
+              <input className="textBox" type="text" placeholder="Enter Password: " value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <div style={{ padding: 2 }}>
               <input className="submitBox" type="submit" value="Sign Up" />

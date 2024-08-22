@@ -26,7 +26,18 @@ module.exports = {
   ],
   plugins: ['simple-import-sort', 'prettier'],
   rules: {
-    'prettier/prettier': ['error', { semi: true }],
+    'prettier/prettier': [
+      'error',
+      {
+        semi: true,
+        singleQuote: true,
+        trailingComma: 'es5',
+        bracketSpacing: true,
+        jsxBracketSameLine: true,
+        printWidth: 150,
+        endOfLine: 'lf',
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/accessible-emoji': 'off',
     'react/prop-types': 'off',
@@ -42,7 +53,14 @@ module.exports = {
       },
     ],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
-    'comma-dangle': 'off', // Prettier handles this
-    curly: 'off', // Prettier handles this
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: { multiline: true, minProperties: 5, consistent: true },
+        ObjectPattern: { multiline: true, minProperties: 5, consistent: true },
+        ImportDeclaration: { multiline: true, minProperties: 5, consistent: true },
+      },
+    ],
+    'function-paren-newline': ['error', 'consistent'], // Consistent line breaks in function parameters
   },
 };

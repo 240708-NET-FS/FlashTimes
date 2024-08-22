@@ -28,3 +28,18 @@ export interface FlashCard {
   author?: User; // The user who created this flashcard (optional)
   set?: Set; // The set this flashcard belongs to (optional)
 }
+
+export interface UserRegistrationDTO {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+}
+
+export interface UserRegistrationResponseDTO {
+  userId: number;
+  userName: string;
+  createdAt: Date;
+  firstName: string;
+  lastName: string;
+}
