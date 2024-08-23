@@ -64,10 +64,12 @@ const LoginBox = ({
     const handleLogin = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        const user = { username, password};
-        // await loginUser(user);
+        const u = { username, password};
+        const response = await loginUser(u);
+        // console.log(response);
+        setUser(response);
         alert('User logged in successfully!');
-        setUser(user);
+        // setUser(user);
         navigate(`/home/${username}`);
       } catch (error) {
         console.log(error);
