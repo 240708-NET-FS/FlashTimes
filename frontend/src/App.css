@@ -148,8 +148,12 @@ br {
 
 #navbar-pos{
   position: absolute;
-  top: 0;
+  width: 50%;
+  display: inherit;
+  /* margin: 10px; */
+  top: 0px;
   z-index: 1;
+  /* padding: 10px; */
   /* top: 25; */
 }
 

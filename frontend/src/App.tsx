@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './pages/HomePage/Home';
@@ -8,7 +8,7 @@ import Landing from './pages/LandingPage/Landing';
 import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignIn';
 
-export const UserContext = React.createContext<null | any>(null);
+export const UserContext = React.createContext<null | any>("");
 
 function App() {
   // TODO: find a better way to type safe this thing
@@ -18,13 +18,19 @@ function App() {
 
   // when user auths in
 
-  // try use navigate for navigating instead
 
   const navigate = useNavigate();
 
   const navigateTo = (route: string) => {
     navigate(route);
   };
+
+  const logout = () => {
+    setUser(null);
+    navigateTo("/");
+  }
+
+
 
   const changeTextColor = (e: any) => {
     var navTitle = document.getElementById('titleLink');
@@ -37,34 +43,52 @@ function App() {
     }
   };
 
+  // make a new set link, show sets on home
+
   return (
     <div className="App" data-testid="app-page">
       <UserContext.Provider value={{ user: user, setUser }}>
         <header className="App-header">
           {/* potentially make a navbar component */}
-          <div id="navbar-pos" style={{ width: '50%', display: 'inherit' }}>
-            <ul id="navbar">
-              <li id="titleWrap">
-                <a
-                  id="titleLink"
-                  className="navLink"
-                  onMouseOver={changeTextColor}
-                  onMouseOut={changeTextColor}
-                  onClick={() => navigateTo('/')}>
-                  FlashTimes
-                </a>
-              </li>
-              <li>
-                <a
-                  className="navLink"
-                  // href="/sign-up"
-                  onClick={() => navigateTo('/sign-up')}>
-                  Sign Up
-                </a>
-              </li>
-              {/* <li><a className="navLink" href="/">Landing</a></li> */}
-            </ul>
-          </div>
+          
+            <div id="navbar-pos">
+              <ul id="navbar">
+                <li id="titleWrap">
+                  <a id="titleLink" 
+                    className="navLink" 
+                    
+                    onMouseOver={changeTextColor} 
+                    onMouseOut={changeTextColor} 
+                    onClick={()=> navigateTo("/")}
+                    >
+                    FlashTimes
+                  </a>
+                </li>
+                <li>
+                  {!user ?
+                  <a 
+                    className="navLink" 
+                    // href="/sign-up"
+                    onClick={()=> navigateTo("/sign-up")}
+                    >
+                    Sign Up
+                  </a>
+                  :
+
+                        <a 
+                        className="navLink" 
+                        // href="/sign-up"
+                        onClick={logout}
+                        >
+                          Logout
+                      </a>
+                   }
+                </li>
+                {/* <li><a className="navLink" href="/">Landing</a></li> */}
+              </ul>
+            </div>
+          
+          
 
           <div style={{ backgroundColor: '#43849c' }}>
             <Routes>

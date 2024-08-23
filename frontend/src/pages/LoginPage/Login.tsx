@@ -6,7 +6,6 @@ import LoginBox from './components/LoginBox';
 
 const Login = ({}) => {
   // for authenticating things
-  const { user, setUser } = useContext(UserContext);
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -25,8 +24,8 @@ const Login = ({}) => {
   return (
     <div>
       <LoginBox
-        u={username}
-        pw={password}
+        username={username}
+        password={password}
         setU={setUsername}
         setPw={setPassword}
         setSubmitted={setSubmitted}

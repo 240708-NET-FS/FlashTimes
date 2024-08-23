@@ -1,71 +1,94 @@
-import React from 'react';
+import { loginUser } from '@services/UserService';
+import { UserContext } from 'App';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginBox = ({
-  u,
-  pw,
+  username,
+  password,
   setU,
   setPw,
   setSubmitted,
 }: {
-  u: string;
-  pw: string;
+  username: string;
+  password: string;
   setU: any;
   setPw: any;
   setSubmitted: any;
 }) => {
-  const loginBox = {
-    width: 250,
-    height: 250,
-    backgroundColor: 'white',
-    color: 'black',
-    padding: 20,
-    borderRadius: 5,
-    // textAlign: 'left' as const,
-    display: 'flex',
-    flexDirection: 'column' as const,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    // borderColor: '#cfe8ef',
-    // overflow: 'hidden',
-  };
 
-  const loginButton = {
-    outline: 'none',
-  };
+  
+  const {user, setUser} = useContext(UserContext);
+    
+    const loginBox = {
+        width: 250,
+        height: 250,
+        backgroundColor: 'white',
+        color: 'black',
+        padding: 20,
+        borderRadius: 5,
+        // textAlign: 'left' as const,
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        // borderColor: '#cfe8ef',
+        // overflow: 'hidden',
+    };
 
-  const navigate = useNavigate();
+    const loginButton = {
+        outline: 'none',
+    };
 
-  const navigateLogin = () => {
-    navigate('/login');
-  };
 
-  // add icon for displaying pw
-  const validateText = () => {
-    if (u.length === 0 || pw.length === 0) {
-      alert('Invalid input! Please re-enter information!');
-    } else {
-      setSubmitted(true);
-    }
-    // if(u === null || pw === null){
-    //     window.alert("Invalid input! Please re-enter information!");
+ 
+    const navigate = useNavigate();
+
+    // const navigateLogin = () => {
+    //     navigate("/login");
     // }
-  };
 
-  return (
-    <div>
-      <div style={loginBox}>
+    // add icon for displaying pw 
+    const validateText = () => {
+        if(username.length === 0 || password.length === 0){
+            alert("Invalid input! Please re-enter information!");
+        }else{
+            setSubmitted(true);
+        }
+        // if(u === null || pw === null){
+        //     window.alert("Invalid input! Please re-enter information!");
+        // }
+    }
+
+    const handleLogin = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+        const user = { username, password};
+        // await loginUser(user);
+        alert('User logged in successfully!');
+        setUser(user);
+        navigate(`/home/${username}`);
+      } catch (error) {
+        console.log(error);
+        alert('Login failed. Please try again');
+      }
+    };
+
+
+    return(
+        <div style={loginBox}>
         <div>
           <h3>Login</h3>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <form onSubmit={handleLogin} >
           <div style={{ padding: 2 }}>
             <input
               className="textBox"
               type="text"
               placeholder="Enter Username: "
-              value={u}
+              value={username}
               onChange={(e) => setU(e.target.value)}
             />
           </div>
@@ -74,15 +97,15 @@ const LoginBox = ({
               className="textBox"
               type="password"
               placeholder="Enter Password: "
-              value={pw}
+              value={password}
               onChange={(e) => setPw(e.target.value)}
             />
           </div>
           <div style={{ padding: 2 }}>
-            <button className="submitBox" type="submit" onClick={validateText}>
-              Submit
-            </button>
+            <input className="submitBox" type="submit" value="Login" />
+
           </div>
+          </form>
         </div>
         {/* <div>
                     <p className="pText">Already have an account?</p>
@@ -93,7 +116,7 @@ const LoginBox = ({
                             </button>
                 </div> */}
       </div>
-    </div>
+    
   );
 };
 
