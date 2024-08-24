@@ -7,7 +7,27 @@ const FlashCard = ({}) => {
   const [text, setText] = useState<string | undefined>(undefined);
 
   // JS animation things
+  interface FlashCardProps{
+    FlashcardId: number;
+    Question: string;
+    Answer: string;
+  }
+  const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer}) => {
+    const[isFlipped, setIsFlipped] = useState(false);
+    const[text, setText] = useState<string>(Question);
 
+    const handleFlip = () => {
+      setIsFlipped(!isFlipped); //Kickflip
+    };
+  
+    const cardFront = { //showing what the front of the card looks like
+      
+    };
+
+    const cardBack = { //showing what the back of the card looks like
+
+    };
+  
   const cardStyle = {
     width: 450,
     height: 250,
@@ -23,12 +43,13 @@ const FlashCard = ({}) => {
     overflow: 'hidden',
   };
 
+
   // useEffect(()=> {
   //     console.log(text);
   // }, [text])
 
   return (
-    <div style={cardStyle}>
+    <div style={cardStyle} onClick={handleFlip}>  
       <div>
         <textarea
           placeholder="Type something here..."
@@ -46,6 +67,7 @@ const FlashCard = ({}) => {
       </div>
     </div>
   );
+}
 };
 
 export default FlashCard;
