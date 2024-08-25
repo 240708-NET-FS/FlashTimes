@@ -21,3 +21,13 @@ export const loginUser = async (credentials: {
   const response = await axios.post(server + 'api/Auth/login', credentials); // We're assuming there's a login endpoint
   return response.data;
 };
+
+
+export const logout = async() => {
+  try{
+    const response = await axios.post(server + 'api/Auth/logout');
+    return response.data;
+  }catch(error){
+    throw new Error('Logout failed: ' + (error as any).response?.data?.message || 'Unknown error');
+  }
+}

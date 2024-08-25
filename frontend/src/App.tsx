@@ -25,9 +25,15 @@ function App() {
     navigate(route);
   };
 
-  const logout = () => {
-    setUser(null);
-    navigateTo("/");
+  const logout = async() => {
+    try{
+      // await logout();
+      // console.log(res);
+      setUser(null);
+      navigateTo("/");
+    }catch(error){
+      alert(error);
+    }
   }
 
 
@@ -47,7 +53,7 @@ function App() {
 
   return (
     <div className="App" data-testid="app-page">
-      <UserContext.Provider value={{ user: user, setUser }}>
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
         <header className="App-header">
           {/* potentially make a navbar component */}
           
@@ -64,8 +70,8 @@ function App() {
                     FlashTimes
                   </a>
                 </li>
-                <li>
-                  {!user ?
+                {!user ? 
+                  <li>
                   <a 
                     className="navLink" 
                     // href="/sign-up"
@@ -73,17 +79,34 @@ function App() {
                     >
                     Sign Up
                   </a>
-                  :
-
-                        <a 
+                  </li>
+                  : 
+                  <div>
+                    
+                     <li>
+                     <a 
                         className="navLink" 
                         // href="/sign-up"
                         onClick={logout}
                         >
                           Logout
                       </a>
-                   }
-                </li>
+                      </li>
+                      <li>
+                      <a 
+                        className='navLink'
+                        onClick={()=> console.log("make a set")}
+                        >
+                          Make a Set
+
+                        </a>
+                    </li>
+                  
+                  </div>
+                 
+                
+              }
+               
                 {/* <li><a className="navLink" href="/">Landing</a></li> */}
               </ul>
             </div>
