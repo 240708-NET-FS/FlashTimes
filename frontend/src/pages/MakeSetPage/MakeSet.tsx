@@ -20,6 +20,7 @@ const MakeSet = () => {
     useEffect(()=> {
         setAddCard(null);
     }, [])
+    
 
     useEffect(()=>{
         if(addCard !== null){
