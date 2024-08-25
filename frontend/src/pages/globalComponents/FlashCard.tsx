@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-const FlashCard = ({}) => {
   // this comment is so I can do things
 
-  const [isActive, setIsActive] = useState(false);
-  const [text, setText] = useState<string | undefined>(undefined);
+ 
 
   // JS animation things
   interface FlashCardProps{
@@ -13,6 +11,8 @@ const FlashCard = ({}) => {
     Answer: string;
   }
   const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer}) => {
+    const [isActive, setIsActive] = useState(false);
+    // const [text, setText] = useState<string | undefined>(undefined);
     const[isFlipped, setIsFlipped] = useState(false);
     const[text, setText] = useState<string>(Question);
 
@@ -67,7 +67,7 @@ const FlashCard = ({}) => {
       </div>
     </div>
   );
-}
+
 };
 
 export default FlashCard;

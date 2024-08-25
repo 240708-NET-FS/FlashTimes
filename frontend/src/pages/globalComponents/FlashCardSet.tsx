@@ -31,3 +31,5 @@ interface FlashCardProps {
       </div>
     );
   };
+
+  export default FlashCardSet;
