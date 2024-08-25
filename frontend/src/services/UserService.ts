@@ -1,9 +1,9 @@
 import axios from 'axios';
+
+import { UserRegistrationDTO, UserRegistrationResponseDTO, UserResponseDTO } from '../types/types';
 import server from './server';
 
-import { UserRegistrationDTO, UserRegistrationResponseDTO } from '../types/types';
-
-// function to register a user
+// Register a user
 export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegistrationResponseDTO> => {
   try {
     const response = await axios.post<UserRegistrationResponseDTO>(server + 'api/Users/register', user);
@@ -13,13 +13,14 @@ export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegis
   }
 };
 
-
-export const loginUser = async (credentials: {
-  username: string;
-  password: string;
-}) => {
-  const response = await axios.post(server + 'api/Auth/login', credentials); // We're assuming there's a login endpoint
-  return response.data;
+// Login a user
+export const loginUser = async (credentials: { userName: string; password: string }): Promise<UserResponseDTO> => {
+  try {
+    const response = await axios.post<UserResponseDTO>(server + 'api/Auth/login', credentials);
+    return response.data;
+  } catch (error) {
+    throw new Error('Login failed: ' + (error as any).response?.data?.message || 'Unknown error');
+  }
 };
 
 

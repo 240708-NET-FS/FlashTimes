@@ -23,13 +23,7 @@ const Login = ({}) => {
 
   return (
     <div>
-      <LoginBox
-        username={username}
-        password={password}
-        setU={setUsername}
-        setPw={setPassword}
-        setSubmitted={setSubmitted}
-      />
+      <LoginBox username={username} password={password} setU={setUsername} setPw={setPassword} setSubmitted={setSubmitted} />
     </div>
   );
 };

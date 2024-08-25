@@ -1,39 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import SignUpBox from './components/SignUpBox';
 import { useNavigate } from 'react-router-dom';
 
+import SignUpBox from './components/SignUpBox';
+
 const SignIn = () => {
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(()=> {
+  useEffect(() => {
     console.log(submitted);
-    if(submitted){
-      navigate("/login");
+    if (submitted) {
+      navigate('/login');
     }
-  }, [submitted])
+  }, [submitted]);
   return (
-    <div >
-      <SignUpBox 
-        firstName={fName}
-        lastName={lName}
-        userName={username}
-        password={password}
-        setFirstName={setFName}
-        setLastName={setLName}
-        setU={setUsername}
-        setPw={setPassword}
-        setSubmitted={setSubmitted}
-    
-    />
+    <div style={{ marginTop: 75 }}>
+      <SignUpBox
+       
+      />
     </div>
-    
-  )
+  );
 };
 
 export default SignIn;

@@ -1,52 +1,48 @@
 import './App.css';
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
+import { UserContext } from './contexts/UserContext';
 import Home from './pages/HomePage/Home';
 import Landing from './pages/LandingPage/Landing';
 import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignIn';
 import MakeSet from 'pages/MakeSetPage/MakeSet';
+import { UserResponseDTO } from './types/types';
 
-export const UserContext = React.createContext<null | any>("");
+// export const UserContext = React.createContext<null | any>('');
 
 function App() {
   // TODO: find a better way to type safe this thing
-  const [user, setUser] = useState<null | any>(null);
-
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-
-  // when user auths in
-
-
+  const [user, setUser] = useState<UserResponseDTO | any>(null);
   const navigate = useNavigate();
 
+  // Initialize user from localStorage if available
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Function to navigate to a specific route
   const navigateTo = (route: string) => {
     navigate(route);
   };
 
-  const logout = async() => {
-    try{
-      // await logout();
-      // console.log(res);
-      setUser(null);
-      navigateTo("/");
-    }catch(error){
-      alert(error);
-    }
-  }
+  // Function to handle logout
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user'); // Remove user from localStorage
+    navigate('/');
+  };
 
-
-
-  const changeTextColor = (e: any) => {
-    var navTitle = document.getElementById('titleLink');
+  // Function to change text color on hover (optional)
+  const changeTextColor = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const navTitle = document.getElementById('titleLink');
     if (navTitle) {
-      if (e.type === 'mouseover') {
-        navTitle.style.backgroundColor = '#94bdde';
-      } else {
-        navTitle.style.backgroundColor = 'transparent';
-      }
+      navTitle.style.backgroundColor = e.type === 'mouseover' ? '#94bdde' : 'transparent';
     }
   };
 
@@ -76,7 +72,8 @@ function App() {
                     FlashTimes
                   </a>
                 </li>
-                {!user ? 
+                {!user ?
+                <div> 
                   <li>
                   <a 
                     className="navLink" 
@@ -86,6 +83,12 @@ function App() {
                     Sign Up
                   </a>
                   </li>
+                   <li>
+                   <a className="navLink" onClick={() => navigateTo('/Login')}>
+                     Login
+                   </a>
+                 </li>
+                 </div>
                   : 
                   <div>
                     
