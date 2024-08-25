@@ -1,7 +1,7 @@
 import axios from 'axios';
-import server from './server';
 
 import { UserRegistrationDTO, UserRegistrationResponseDTO } from '../types/types';
+import server from './server';
 
 // function to register a user
 export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegistrationResponseDTO> => {
@@ -13,11 +13,7 @@ export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegis
   }
 };
 
-
-export const loginUser = async (credentials: {
-  username: string;
-  password: string;
-}) => {
+export const loginUser = async (credentials: { username: string; password: string }) => {
   const response = await axios.post(server + 'api/Auth/login', credentials); // We're assuming there's a login endpoint
   return response.data;
 };
