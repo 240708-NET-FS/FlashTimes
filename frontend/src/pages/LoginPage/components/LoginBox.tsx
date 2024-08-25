@@ -66,7 +66,7 @@ const LoginBox = ({
       try {
         const u = { username, password};
         const response = await loginUser(u);
-        // console.log(response);
+        console.log(response);
         setUser(response);
         alert('User logged in successfully!');
         // setUser(user);

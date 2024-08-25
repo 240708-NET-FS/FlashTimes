@@ -49,6 +49,11 @@ function App() {
     }
   };
 
+
+  useEffect(()=> {
+    console.log(user);
+  }, [user])
+
   // make a new set link, show sets on home
 
   return (
@@ -95,12 +100,21 @@ function App() {
                       <li>
                       <a 
                         className='navLink'
+                        onClick={()=> navigateTo(`/home/${user.userName}`)}
+                        >
+                          Home
+                        </a>
+                    </li>
+                      <li>
+                      <a 
+                        className='navLink'
                         onClick={()=> console.log("make a set")}
                         >
                           Make a Set
 
                         </a>
                     </li>
+                   
                   
                   </div>
                  

@@ -6,7 +6,7 @@ const SetsContainer = ({sets}: {sets: any[]}) => {
 
 
     const mapSets  = sets.map(s => (
-        <div style={{flexBasis: '15%', display: 'inherit', alignItems: 'center', justifyContent: 'center', padding: 5 }}>
+        <div style={{flexBasis: '25%', display: 'inherit', alignItems: 'center', justifyContent: 'center', padding: 5 }}>
             <SetBox set={s} />
         </div>
 
