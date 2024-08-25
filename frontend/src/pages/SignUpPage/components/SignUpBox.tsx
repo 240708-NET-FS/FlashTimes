@@ -1,29 +1,14 @@
-import { registerUser } from '@services/UserService';
-import React from 'react';
+// src/components/SignUpBox.tsx
+
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignUpBox = ({
-  firstName,
-  lastName,
-  setFirstName,
-  setLastName,
-  userName,
-  password,
-  setU,
-  setPw,
-  setSubmitted
-}: {
-  firstName: string;
-  lastName: string;
-  setFirstName: React.Dispatch<React.SetStateAction<string>>;
-  setLastName: React.Dispatch<React.SetStateAction<string>>;
-  userName: string;
-  password: string;
-  setU: React.Dispatch<React.SetStateAction<string>>;
-  setPw: React.Dispatch<React.SetStateAction<string>>;
-  setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+import { UserContext } from '../../../contexts/UserContext';
+import { registerUser } from '../../../services/UserService'; 
+import { UserRegistrationDTO, UserRegistrationResponseDTO } from '../../../types/types';
+
+const SignUpBox = () => {
   const signUpBox = {
     width: 250,
     height: '100%',
@@ -42,58 +27,48 @@ const SignUpBox = ({
   };
 
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
-  const navigateLogin = () => {
-    navigate('/login');
-  };
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [userName, setUserName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const newUser = { firstName, lastName, userName, password };
-      await registerUser(newUser);
+      const newUser: UserRegistrationDTO = { firstName, lastName, userName, password };
+      const response: UserRegistrationResponseDTO = await registerUser(newUser);
+
+      // Optionally, log the user in immediately after registration
+      setUser({
+        userId: response.userId,
+        userName: response.userName,
+        firstName: response.firstName,
+        lastName: response.lastName,
+        createdAt: response.createdAt,
+      });
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          userId: response.userId,
+          userName: response.userName,
+          firstName: response.firstName,
+          lastName: response.lastName,
+          createdAt: response.createdAt,
+        })
+      );
+
       alert('User registered successfully!');
-      navigate('/login');
-    } catch (error) {
+      setSubmitted(true);
+      navigate('/home/' + response.userName);
+    } catch (error: any) {
       alert('Registration failed. Please try again');
+      console.error(error);
     }
   };
-
-  //   return (
-  //     <div>
-  //       <div style={signUpBox}>
-  //         <div>
-  //           <h3>Sign Up</h3>
-  //         </div>
-  //         <div className="flex">
-  //           <form onSubmit={handleSignUp} className="flex flex-col">
-  //             <div className="mb-2">
-  //               <input
-  //                 className="textBox"
-  //                 type="text"
-  //                 placeholder="Enter First Name"
-  //                 value={firstName}
-  //                 onChange={(e) => setFirstName(e.target.value)}
-  //               />
-  //             </div>
-  //             <div className="mb-2">
-  //               <input className="textBox" type="text" placeholder="Enter Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-  //             </div>
-  //             <div style={{ padding: 2 }}>
-  //               <input className="textBox" type="text" placeholder="Enter Username: " value={username} onChange={(e) => setUsername(e.target.value)} />
-  {
-    /* const validateText = () => {
-        if(fName.length === 0 || lName.length === 0 || u.length === 0 || pw.length === 0){
-            alert("Invalid input! Please re-enter information!");
-        }else{
-            setSubmitted(true);
-        }
-        // if(u === null || pw === null){
-        //     window.alert("Invalid input! Please re-enter information!");
-        // }
-
-    } */
-  }
 
   return (
     <div>
@@ -101,40 +76,47 @@ const SignUpBox = ({
         <div>
           <h3>Sign Up</h3>
         </div>
-        <div className="flex">
-          <form onSubmit={handleSignUp} className="flex flex-col">
-            <div className="mb-2" style={{ padding: 2 }}>
-              <input
-                className="textBox"
-                type="text"
-                placeholder="Enter First Name: "
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </div>
-            <div style={{ padding: 2 }}>
-              <input className="textBox" type="text" placeholder="Enter Last Name: " value={lastName} onChange={(e) => setLastName(e.target.value)} />
-            </div>
-            <br />
-            <div style={{ padding: 2 }}>
-              <input className="textBox" type="text" placeholder="Enter Username: " value={userName} onChange={(e) => setU(e.target.value)} />
-            </div>
-            <div style={{ padding: 2 }}>
-              <input className="textBox" type="password" placeholder="Enter Password: " value={password} onChange={(e) => setPw(e.target.value)} />
-            </div>
-            <div style={{ padding: 2 }}>
-              <input className="submitBox" type="submit" value="Sign Up" />
-            </div>
-          </form>
-        </div>
-        <div>
-          <p className="pText">Already have an account?</p>
-          <button onClick={navigateLogin}>
-            <b>
-              <u>Login</u>
-            </b>
-          </button>
-        </div>
+        <form onSubmit={handleSignUp} className="flex flex-col">
+          <input
+            className="textBox mb-2"
+            type="text"
+            placeholder="Enter First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <input
+            className="textBox mb-2"
+            type="text"
+            placeholder="Enter Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+          <input
+            className="textBox mb-2"
+            type="text"
+            placeholder="Enter Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+          <input
+            className="textBox mb-2"
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input className="submitBox" type="submit" value="Sign Up" />
+        </form>
+        <p className="pText">Already have an account?</p>
+        <button onClick={() => navigate('/login')}>
+          <b>
+            <u>Login</u>
+          </b>
+        </button>
       </div>
     </div>
   );

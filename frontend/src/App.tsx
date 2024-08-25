@@ -1,45 +1,47 @@
 import './App.css';
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
+import { UserContext } from './contexts/UserContext';
 import Home from './pages/HomePage/Home';
 import Landing from './pages/LandingPage/Landing';
 import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignIn';
+import { UserResponseDTO } from './types/types';
 
-export const UserContext = React.createContext<null | any>("");
+// export const UserContext = React.createContext<null | any>('');
 
 function App() {
   // TODO: find a better way to type safe this thing
-  const [user, setUser] = useState<null | any>(null);
-
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-
-  // when user auths in
-
-
+  const [user, setUser] = useState<UserResponseDTO | any>(null);
   const navigate = useNavigate();
 
+  // Initialize user from localStorage if available
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Function to navigate to a specific route
   const navigateTo = (route: string) => {
     navigate(route);
   };
 
+  // Function to handle logout
   const logout = () => {
     setUser(null);
-    navigateTo("/");
-  }
+    localStorage.removeItem('user'); // Remove user from localStorage
+    navigate('/');
+  };
 
-
-
-  const changeTextColor = (e: any) => {
-    var navTitle = document.getElementById('titleLink');
+  // Function to change text color on hover (optional)
+  const changeTextColor = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const navTitle = document.getElementById('titleLink');
     if (navTitle) {
-      if (e.type === 'mouseover') {
-        navTitle.style.backgroundColor = '#94bdde';
-      } else {
-        navTitle.style.backgroundColor = 'transparent';
-      }
+      navTitle.style.backgroundColor = e.type === 'mouseover' ? '#94bdde' : 'transparent';
     }
   };
 
@@ -49,46 +51,36 @@ function App() {
     <div className="App" data-testid="app-page">
       <UserContext.Provider value={{ user: user, setUser }}>
         <header className="App-header">
-          {/* potentially make a navbar component */}
-          
-            <div id="navbar-pos">
-              <ul id="navbar">
-                <li id="titleWrap">
-                  <a id="titleLink" 
-                    className="navLink" 
-                    
-                    onMouseOver={changeTextColor} 
-                    onMouseOut={changeTextColor} 
-                    onClick={()=> navigateTo("/")}
-                    >
-                    FlashTimes
-                  </a>
-                </li>
+          {/* Navigation Bar */}
+          <div id="navbar-pos">
+            <ul id="navbar">
+              <li id="titleWrap">
+                <a id="titleLink" className="navLink" onMouseOver={changeTextColor} onMouseOut={changeTextColor} onClick={() => navigateTo('/')}>
+                  FlashTimes
+                </a>
+              </li>
+              {!user ? (
+                <>
+                  <li>
+                    <a className="navLink" onClick={() => navigateTo('/sign-up')}>
+                      Sign Up
+                    </a>
+                  </li>
+                  <li>
+                    <a className="navLink" onClick={() => navigateTo('/Login')}>
+                      Login
+                    </a>
+                  </li>
+                </>
+              ) : (
                 <li>
-                  {!user ?
-                  <a 
-                    className="navLink" 
-                    // href="/sign-up"
-                    onClick={()=> navigateTo("/sign-up")}
-                    >
-                    Sign Up
+                  <a className="navLink" onClick={logout}>
+                    Logout
                   </a>
-                  :
-
-                        <a 
-                        className="navLink" 
-                        // href="/sign-up"
-                        onClick={logout}
-                        >
-                          Logout
-                      </a>
-                   }
                 </li>
-                {/* <li><a className="navLink" href="/">Landing</a></li> */}
-              </ul>
-            </div>
-          
-          
+              )}
+            </ul>
+          </div>
 
           <div style={{ backgroundColor: '#43849c' }}>
             <Routes>

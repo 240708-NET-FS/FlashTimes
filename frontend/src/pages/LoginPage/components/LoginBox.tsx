@@ -1,7 +1,8 @@
 import { loginUser } from '@services/UserService';
-import { UserContext } from 'App';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { UserContext } from '../../../contexts/UserContext';
 
 const LoginBox = ({
   username,
@@ -16,8 +17,6 @@ const LoginBox = ({
   setPw: any;
   setSubmitted: any;
 }) => {
-  const { user, setUser } = useContext(UserContext);
-
   const loginBox = {
     width: 250,
     height: 250,
@@ -35,35 +34,28 @@ const LoginBox = ({
     // overflow: 'hidden',
   };
 
-  const loginButton = {
-    outline: 'none',
-  };
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  // const navigateLogin = () => {
-  //     navigate("/login");
-  // }
-
-  // add icon for displaying pw
   const validateText = () => {
     if (username.length === 0 || password.length === 0) {
       alert('Invalid input! Please re-enter information!');
     } else {
       setSubmitted(true);
     }
-    // if(u === null || pw === null){
-    //     window.alert("Invalid input! Please re-enter information!");
-    // }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const user = { username, password };
-      // await loginUser(user);
+      const credentials = { userName: username, password };
+      const userResponse = await loginUser(credentials);
+
+      setUser(userResponse); // Update context
+      localStorage.setItem('user', JSON.stringify(userResponse)); // Store in localStorage
+
       alert('User logged in successfully!');
-      setUser(user);
       navigate(`/home/${username}`);
     } catch (error) {
       console.log(error);
@@ -72,31 +64,25 @@ const LoginBox = ({
   };
 
   return (
-    <div style={loginBox}>
-      <div>
-        <h3>Login</h3>
+    <div>
+      <div style={loginBox}>
+        <div>
+          <h3>Login</h3>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <form onSubmit={handleLogin}>
+            <div style={{ padding: 2 }}>
+              <input className="textBox" type="text" placeholder="Enter Username: " value={username} onChange={(e) => setU(e.target.value)} />
+            </div>
+            <div style={{ padding: 2 }}>
+              <input className="textBox" type="password" placeholder="Enter Password: " value={password} onChange={(e) => setPw(e.target.value)} />
+            </div>
+            <div style={{ padding: 2 }}>
+              <input className="submitBox" type="submit" value="Login" />
+            </div>
+          </form>
+        </div>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <form onSubmit={handleLogin}>
-          <div style={{ padding: 2 }}>
-            <input className="textBox" type="text" placeholder="Enter Username: " value={username} onChange={(e) => setU(e.target.value)} />
-          </div>
-          <div style={{ padding: 2 }}>
-            <input className="textBox" type="password" placeholder="Enter Password: " value={password} onChange={(e) => setPw(e.target.value)} />
-          </div>
-          <div style={{ padding: 2 }}>
-            <input className="submitBox" type="submit" value="Login" />
-          </div>
-        </form>
-      </div>
-      {/* <div>
-                    <p className="pText">Already have an account?</p>
-                    <button 
-                        style={loginButton}
-                        onClick={navigateLogin}>
-                            <b><u>Login</u></b>
-                            </button>
-                </div> */}
     </div>
   );
 };
