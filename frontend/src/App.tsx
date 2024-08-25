@@ -7,6 +7,7 @@ import Home from './pages/HomePage/Home';
 import Landing from './pages/LandingPage/Landing';
 import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignIn';
+import MakeSet from 'pages/MakeSetPage/MakeSet';
 
 export const UserContext = React.createContext<null | any>("");
 
@@ -108,7 +109,7 @@ function App() {
                       <li>
                       <a 
                         className='navLink'
-                        onClick={()=> console.log("make a set")}
+                        onClick={()=> navigateTo("/make-a-set")}
                         >
                           Make a Set
 
@@ -127,12 +128,13 @@ function App() {
           
           
 
-          <div style={{ backgroundColor: '#43849c' }}>
+          <div style={{marginTop: 100 }}>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home/:username" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/make-a-set" element={<MakeSet />} />
             </Routes>
           </div>
         </header>

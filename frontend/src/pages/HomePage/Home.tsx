@@ -75,7 +75,7 @@ const Home = () => {
 
   return(
     <div>
-      <div style={{marginTop: 100}}>
+      <div >
         <SetsContainer sets={protoSets}/>
       </div>
     </div>

@@ -18,7 +18,7 @@ const SignIn = () => {
     }
   }, [submitted])
   return (
-    <div style={{marginTop: 75}}>
+    <div >
       <SignUpBox 
         firstName={fName}
         lastName={lName}

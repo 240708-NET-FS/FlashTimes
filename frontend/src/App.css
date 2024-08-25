@@ -8,14 +8,15 @@
 :root {
   --primay: white;
 
-  --bg-primay: #43849c;
+  --bg-primay: #115871;
 
   --link: #2a0b0b;
 }
 
 .App {
   text-align: center;
-  background-color: #43849c;
+  background-color: #115871;
+  padding-bottom: 100px;
 }
 
 *{
@@ -29,7 +30,7 @@
 }
 
 p {
-  margin: 20px 0px;
+  margin: 5px 0px;
 }
 
 .header {
@@ -75,7 +76,7 @@ textarea:focus {
   min-height: 100vh;
   display: flex;
   /* flex-direction: column; */
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   font-size: calc(10px + 2vmin);
   background: var(--bg-primay);
@@ -180,12 +181,12 @@ br {
 
 .submitBox:active{
   background-color: #cfe8ef;
-  color: #43849c;
+  color: #115871;
 }
 
 .submitBox:hover{
   background-color: #cfe8ef;
-  color: #43849c;
+  color: #115871;
 
 }
 
