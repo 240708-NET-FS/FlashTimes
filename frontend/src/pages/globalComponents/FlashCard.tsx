@@ -9,24 +9,31 @@ import React, { useEffect, useState } from 'react';
     FlashcardId: number;
     Question: string;
     Answer: string;
+    updateCard: (FlashCardId: number, Question: string, Answer: string) => Promise<void>;
+    deleteCard: (FlashCardId: number) => void;
+    
   }
   const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer}) => {
     const [isActive, setIsActive] = useState(false);
-    // const [text, setText] = useState<string | undefined>(undefined);
-    const[isFlipped, setIsFlipped] = useState(false);
+    const [questionText, setQuestionText] = useState<string>(Question); //enter your question
+    const [answerText, setAnswerText] = useState<string>(Answer); //enter your answer
+    const[isFlipped, setIsFlipped] = useState(false); //flip!
     const[text, setText] = useState<string>(Question);
 
     const handleFlip = () => {
       setIsFlipped(!isFlipped); //Kickflip
     };
+
+    const handleUpdate = () => {
+      // Call updateCard with the current state values
+      updateCard(FlashcardId, questionText, answerText);
+    };
   
-    const cardFront = { //showing what the front of the card looks like
-      
+    const handleDelete = () => {
+      // Call deleteCard to remove this flashcard
+      deleteCard(FlashcardId);
     };
-
-    const cardBack = { //showing what the back of the card looks like
-
-    };
+  
   
   const cardStyle = {
     width: 450,
@@ -51,11 +58,20 @@ import React, { useEffect, useState } from 'react';
   return (
     <div style={cardStyle} onClick={handleFlip}>  
       <div>
-        <textarea
-          placeholder="Type something here..."
-          onChange={(e: any) => setText(e.target.value)}>
-          {text}
-        </textarea>
+        {!isFlipped ? (
+           <textarea
+           placeholder="Type something here..."
+           onChange={(e: any) => setQuestionText(e.target.value)}>
+           {text}
+         </textarea>
+        ): (
+          <textarea
+           placeholder="Type something here..."
+           onChange={(e: any) => setAnswerText(e.target.value)}>
+           {text}
+         </textarea>
+        )} 
+
         {/* <textarea 
 =                   placeholder="Type something here..." 
                     value={text}
