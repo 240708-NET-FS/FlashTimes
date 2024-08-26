@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import FlashCardSet from '../LandingPage/FlashCardSet';
 
   // this comment is so I can do things
 
@@ -11,29 +12,23 @@ import React, { useEffect, useState } from 'react';
     Answer: string;
     updateCard: (FlashCardId: number, Question: string, Answer: string) => Promise<void>;
     deleteCard: (FlashCardId: number) => void;
-    
   }
-  const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer}) => {
-    const [isActive, setIsActive] = useState(false);
-    const [questionText, setQuestionText] = useState<string>(Question); //enter your question
-    const [answerText, setAnswerText] = useState<string>(Answer); //enter your answer
-    const[isFlipped, setIsFlipped] = useState(false); //flip!
-    const[text, setText] = useState<string>(Question);
-
+  const FlashCard: React.FC<FlashCardProps> = ({ FlashcardId, Question, Answer, updateCard, deleteCard }) => {
+    const [questionText, setQuestionText] = useState<string>(Question);
+    const [answerText, setAnswerText] = useState<string>(Answer);
+    const [isFlipped, setIsFlipped] = useState(false);
+  
     const handleFlip = () => {
-      setIsFlipped(!isFlipped); //Kickflip
+      setIsFlipped(!isFlipped);
     };
-
+  
     const handleUpdate = () => {
-      // Call updateCard with the current state values
       updateCard(FlashcardId, questionText, answerText);
     };
   
     const handleDelete = () => {
-      // Call deleteCard to remove this flashcard
       deleteCard(FlashcardId);
     };
-  
   
   const cardStyle = {
     width: 450,
@@ -55,35 +50,41 @@ import React, { useEffect, useState } from 'react';
   //     console.log(text);
   // }, [text])
 
+ 
   return (
     <div style={cardStyle} onClick={handleFlip}>  
       <div>
         {!isFlipped ? (
-           <textarea
-           placeholder="Type something here..."
-           onChange={(e: any) => setQuestionText(e.target.value)}>
-           {text}
-         </textarea>
-        ): (
           <textarea
-           placeholder="Type something here..."
-           onChange={(e: any) => setAnswerText(e.target.value)}>
-           {text}
-         </textarea>
-        )} 
-
-        {/* <textarea 
-=                   placeholder="Type something here..." 
-                    value={text}
-                    onChange={(e: any) => setText(e.target.value)}
-                    />
-                    
-                    </div>
-                    */}
+            placeholder="Type your question here..."
+            value={questionText}
+            onChange={(e: any) => setQuestionText(e.target.value)}
+          />
+        ) : (
+          <textarea
+            placeholder="Type your answer here..."
+            value={answerText}
+            onChange={(e: any) => setAnswerText(e.target.value)}
+          />
+        )}
       </div>
+      
+      {/* Update and Delete buttons */}
+      <button 
+        style={{ position: 'absolute', bottom: 10, left: 10 }} 
+        onClick={handleUpdate}
+      >
+        Update
+      </button>
+      <button 
+        style={{ position: 'absolute', bottom: 10, right: 10 }} 
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
     </div>
   );
-
 };
 
 export default FlashCard;
+
