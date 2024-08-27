@@ -1,5 +1,5 @@
 import React from 'react';
-
+import FlashCardSet from '../LandingPage/FlashCardSet';
 import FlashCard from '../globalComponents/FlashCard';
 
 const Landing = () => {
