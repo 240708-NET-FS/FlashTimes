@@ -11,15 +11,18 @@ const SetsContainer = () => {
 
     const {user} = useContext(UserContext);
     const [sets, setSets] = useState<null | SetDTO[]>(null);
+    const [loading, setLoading] = useState<null | boolean>(null);
 
     useEffect(()=> {
         if(user){
             const fetchSets = async()=> {
                 try{
+                    setLoading(true);
                     const response = await getSets();
                     // see if possible to get an endpoint for this from backend 
                     const filteredResponse = filterSetsById(user.userId, response); 
                     setSets(filteredResponse);
+                    setLoading(false);
                 }catch(error){
                     console.error(error);
                 }
@@ -44,8 +47,9 @@ const SetsContainer = () => {
 
     return(
         <div style={{alignItems: 'center',  }}>
+            {loading ? <div><p>Loading...</p></div>:
             
-            {sets ?
+            sets ?
                 <div>
                     <div style={{alignSelf: 'flex-start', textAlign: 'left'}}>
                         <h3>Recent Sets</h3>
@@ -58,7 +62,8 @@ const SetsContainer = () => {
                 <div >
                     Create a set today!
                 </div>
-            }
+            
+        }
 
         </div>
 )

@@ -135,7 +135,7 @@ function App() {
               <Route path="/home/:username" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/make-a-set" element={<MakeSet />} />
-              <Route path="/set/:setId" element={<SetPage />} />
+              <Route path="/set/:setName" element={<SetPage />} />
             </Routes>
           </div>
         </header>

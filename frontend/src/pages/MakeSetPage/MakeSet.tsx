@@ -48,7 +48,7 @@ const MakeSet = () => {
             console.log("Adding all the cards...");
             addAllCardsToSet(response.setId);
             // navigate to set page
-            navigate(`/set/${response.setId}`);
+            navigate(`/set/${response.setName}`);
         }catch(error){
             console.error(error);
         }

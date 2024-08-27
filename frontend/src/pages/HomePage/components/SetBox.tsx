@@ -9,14 +9,14 @@ const SetBox = ({set}: {set: any}) => {
 
 
     const handleClick = () => {
-        console.log("to the set page!");
-        navigate(`/set/${set.setId}`);
+        console.log("Navigating to set page...");
+        navigate(`/set/${set.setName}`);
     }
 
     return(
         <div className="setBox" onClick={handleClick}>
             <div className="setTab">
-                <p className="setTabText">20 Cards</p>
+                <p className="setTabText">{set.setLength} Cards</p>
             </div>
             <div className="setTextWrap">
                 <p className="setText" onClick={handleClick}>{set.setName}</p>
