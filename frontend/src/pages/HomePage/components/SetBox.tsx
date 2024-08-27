@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "../styles/HomeStyles.css";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "contexts/UserContext";
 
 const SetBox = ({set}: {set: any}) => {
 
@@ -9,10 +10,8 @@ const SetBox = ({set}: {set: any}) => {
 
     const handleClick = () => {
         console.log("to the set page!");
-        navigate(`/set/${0}`);
+        navigate(`/set/${set.setId}`);
     }
-
-   
 
     return(
         <div className="setBox" onClick={handleClick}>

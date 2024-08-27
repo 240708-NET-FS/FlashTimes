@@ -18,6 +18,18 @@ export const updateSet = async(id: number, set:UpdateSetDTO): Promise<UpdateSetD
         const response = await axios.put<UpdateSetDTO>(server + `api/Sets/${id}`, set );
         return response.data;
     }catch(error){
-        throw new Error('Updating Set Failed: ' + (error as any).response || 'Unknown error');
+        throw new Error('Updating Set Failed: ' + (error as any).response?.data?.message || 'Unknown error');
     }
+}
+
+
+export const getSets = async(): Promise<SetDTO[]> => {
+    try{
+        const response = await axios.get<SetDTO[]>(server + 'api/Sets');
+        return response.data;
+
+    }catch(error){
+        throw new Error('Getting sets failed: ' + (error as any).response?.data?.message || 'Unknown error');
+    }
+
 }

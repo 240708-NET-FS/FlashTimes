@@ -63,25 +63,13 @@ const Home = () => {
 
   ];
 
-
-
-  useEffect(()=> {
-    console.log("fetching sets...");
-    
-    // console.log(user);
-
-  }, [])
-
-
   return(
     <div style={{display: 'flex' , alignItems: 'center', flexDirection: 'column', }}>
       
       
       <div style={{ width: '80%'}}>
-          <div style={{alignSelf: 'flex-start', textAlign: 'left'}}>
-            <h3>Recent Sets</h3>
-          </div>
-        <SetsContainer sets={protoSets}/>
+          
+        <SetsContainer />
       </div>
     </div>
   )
