@@ -1,119 +1,109 @@
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
+import React, {memo, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react";
 import "./styles/MakeSetStyles.css"
 import BlankCard from "./components/BlankCard";
 import AddCardButton from "./components/AddCardButton";
 import { CreateSetDTO, FlashCardDTORequest, UpdateSetDTO } from "types/types";
 import { UserContext } from "contexts/UserContext";
 import { createNewSet } from "@services/SetService";
+import { addFlashCard } from "@services/FlashCardService";
+import { useNavigate } from "react-router-dom";
 
 const MakeSet = () => {
     const {user} = useContext(UserContext);
     const [disabled, setDisabled] = useState<boolean>(true);
     const [title, setTitle] = useState<string>("");
-    const [addCard, setAddCard] = useState<boolean | null>(null);
-    const [set, setSet] = useState<any>(null);
-    
+    // triggers for adding/removing a card
+    const [addCardTrigger, setAddCardTrigger] = useState(0);
+    const [removeCardTrigger, setRemoveCardTrigger] = useState(0);
+    const cardIdRef = useRef(0);    
 
-    const addRef = useRef<any>(true);
-    // const [addCard, setAddCard] = useState<null | boolean>(null);
-    const [remove, setRemove] = useState(false); 
+    // default card added on Add FlashCard 
+    const defaultCard = {
+        flashCardId: 0, //not in DTO, but makes easier to remove (not included when added)
+        userId: user?.userId,
+        setId: 0, //changed when set created
+        question: "",
+        answer: ""
+    }
 
     // default card
-    const [blankCardList, setBlankCardList] = useState<FlashCardDTORequest[]>([{userId: user?.userId, setId: 0, question: "", answer: ""}]);
+    const [blankCardList, setBlankCardList] = useState<any[]>([defaultCard]);
 
-    const [removeCard, setRemoveCard] = useState<null | any>(null);
-    // temporary ref till getting objs from backend
-    const cardIdRef = useRef(0);
 
-    useEffect(()=> {
-        setAddCard(null);
-        setRemoveCard(null);
-    }, [])
+
+    const navigate = useNavigate();
+
 
     // if no title set, can't create the set
     useEffect(()=> {
-        title.length > 0 ? setDisabled(false) : setDisabled(true);
+            blankCardList.length > 0 && title.length > 0 ? setDisabled(false) : setDisabled(true);
     }, [title])
 
-
-    const handleAdd = () => {
-        // if(addCard !== null){
-        //     let temp = blankCardList.slice();
-        //     cardIdRef.current += 1;
-        //     temp.push({id: cardIdRef.current, card: null});
-        //     console.log(temp);
-        //     setBlankCardList(temp);
-
-        // }
-       
-    }
-
-    const handleRemove = () => {
-        // console.log(removeCard);
-        // if(listContains(removeCard, blankCardList)){
-        //     let temp = blankCardList.filter(c => c.id !== removeCard);
-        //     setBlankCardList(temp);
-        // }
-        
-    }
-    
-
-    useEffect(()=> {
-        if(addCard !== null){
-            handleAdd();
-        }
-    }, [addCard])
-
-    useEffect(()=> {
-        handleRemove();
-
-    }, [removeCard])
-
-    const listContains = (id: number, arr: any[]) => {
-        return arr.filter(c => c.id === id).length > 0;
-    }
 
     const createSet = async() => {
         try{
             console.log("creating the set...");
             const newSet: CreateSetDTO = {userId: user?.userId , setName: title};
             const response = await createNewSet(newSet);
-            console.log(response);
-            setSet(response);
-
+            console.log("Adding all the cards...");
+            addAllCardsToSet(response.setId);
+            // navigate to set page
+            navigate(`/set/${response.setId}`);
         }catch(error){
             console.error(error);
         }
     }
 
-    // ask to get setID in DTO
 
-    
-    // response doesn't return id, so unfortunately title immutable from here
+    // probably a bettwer way to do this, but alas (might add to helpers.ts)
+    const addAllCardsToSet = async(setId: number) => {
+        for(let i = 0; i < blankCardList.length;i++){
+            const card: FlashCardDTORequest = {userId: user?.userId, setId: setId, question: blankCardList[i].question, answer: blankCardList[i].answer};
+            console.log('Making dto card: ' + card);
+            console.log('Adding the card...');
+            const response = await addFlashCard(card);
+            console.log('Added card successfully');
+        }
 
-    // const handleUpdateSet = async()=> {
-    //     try{
-    //         console.log("updating the set...");
-    //         const updatedSet: UpdateSetDTO  = {userId: user?.userId, setName: title};
-    //         // const response = await updateSet(updatedSet);
-    //     }catch(error){
-    //         console.error(error)
-    //     }
-    // }
+    }
+    // adds a blank card on button click (only on button click)
+    const addBlankCard = () =>{
+        console.log("should only add on click...");
+        setAddCardTrigger(addCardTrigger + 1); //triggers the change state (probably a better way to do this, but I digress)
+        let temp = blankCardList.slice();
+        console.log(temp);
+        cardIdRef.current +=1;
+        const newDefault = {flashCardId:cardIdRef.current,userId: user?.userId, setId: 0, question: "", answer: ""};
+        temp.push(newDefault);
+        console.log(temp);
+
+        setBlankCardList(temp);
+
+    }
+
+    // makes it so the cards only add on click (not on rerender or anything)
+    const memoizedAddBlankCard = useCallback(addBlankCard, [addCardTrigger])
 
 
-    useEffect(()=>{
-        console.log(blankCardList[0].question);
-    }, [blankCardList])
+    const removeACard = (card: any) => {
+        console.log("should remove a card...");
+        setRemoveCardTrigger(removeCardTrigger + 1);
+
+        if(blankCardList.length - 1 > 0){
+            let temp = blankCardList.splice(blankCardList.indexOf(card), 1) //this works somehow 
+        }
+        else{
+            alert("Need at least 1 card to create a set!");
+        }
+    }
+
 
     let spawnBlankCards = blankCardList.map((b, index) => (
                 <div style={{display: 'flex', paddingBottom: 5}}>
-                    <BlankCard index={index} card={b} setRemoveCard={setRemoveCard}/>
+                    <BlankCard index={index} card={b} updateCards={removeACard}/>
                 </div>
             )
     )
-
-
    
     return(
         <div style={{position: 'relative', top: 10}}>
@@ -136,7 +126,7 @@ const MakeSet = () => {
                 </div>
 
                 <div style={{width: '100%', display: 'flex' }}>
-                        <AddCardButton addCard={addCard} setAddCard={setAddCard}/>
+                        <AddCardButton addCardTrigger={addCardTrigger} updateCards={memoizedAddBlankCard} />
                 </div>
                    
             </div>

@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FlashCard, FlashCardDTORequest } from "types/types";
 import "../styles/MakeSetStyles.css";
 import {AiFillCloseSquare} from "react-icons/ai";
 
 
-const BlankCard = ({index, card, setRemoveCard}:{index: number, card: FlashCardDTORequest,setRemoveCard: any}) => {
+const BlankCard = ({index, card, updateCards}:{index: number, card: any, updateCards: any}) => {
     const [question, setQuestion] = useState<string>("");
     const [answer, setAnswer] = useState<string>("");
+
+    
+  
 
 
     useEffect(()=> {
         card.question = question;
         card.answer = answer;
     }, [question, answer]);
+
+
+ 
+
+
+
 
     return(
         <div className="blankCard">
@@ -22,7 +31,7 @@ const BlankCard = ({index, card, setRemoveCard}:{index: number, card: FlashCardD
                 </div> */}
                 {/* <h5 style={{textAlign: 'left'}}>1</h5>  */}
                 <div id="close" style={{width: '100%', textAlign: 'right'}}>
-                    <AiFillCloseSquare size={32} color={"#115871"} onClick={()=> setRemoveCard(index)}/>
+                    <AiFillCloseSquare size={32} color={"#115871"} onClick={()=> updateCards(card)}/>
                 </div>
             {/* <hr /> */}
             </div>
@@ -41,7 +50,6 @@ const BlankCard = ({index, card, setRemoveCard}:{index: number, card: FlashCardD
                
             </div>
             
-           
         </div>
     )
 }

@@ -7,7 +7,7 @@ import "../styles/MakeSetStyles.css";
 // make prop interface or something
 
 
-const AddCardButton = ({addCard, setAddCard}: {addCard: boolean | null, setAddCard: any}) => {
+const AddCardButton = ({addCardTrigger, updateCards }: {addCardTrigger: any, updateCards: any}) => {
     const [hover, setHover] = useState(false);
 
     const handleHover = (e: any) => {
@@ -16,11 +16,9 @@ const AddCardButton = ({addCard, setAddCard}: {addCard: boolean | null, setAddCa
         }
 
     }
-
-  
     
     return(
-        <div id="addButton" onMouseOver={handleHover} onMouseOut={handleHover} onClick={()=> setAddCard(!addCard)}>
+        <div id="addButton" onMouseOver={handleHover} onMouseOut={handleHover} onClick={updateCards}>
             <p style={{fontWeight: 'bold', }}>Add FlashCard +</p>
                 {/* <AiOutlinePlusCircle 
                     size={50}
@@ -32,4 +30,4 @@ const AddCardButton = ({addCard, setAddCard}: {addCard: boolean | null, setAddCa
 
 }
 
-export default AddCardButton;
+export default React.memo(AddCardButton);
