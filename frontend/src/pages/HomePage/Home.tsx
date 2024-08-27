@@ -1,4 +1,4 @@
-import { UserContext } from 'App';
+import { UserContext } from '../../contexts/UserContext';
 import React, { useContext, useEffect } from 'react';
 import SetsContainer from './components/SetsContainer';
 

@@ -69,7 +69,7 @@ const LoginBox = ({
         <div>
           <h3>Login</h3>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           <form onSubmit={handleLogin}>
             <div style={{ padding: 2 }}>
               <input className="textBox" type="text" placeholder="Enter Username: " value={username} onChange={(e) => setU(e.target.value)} />

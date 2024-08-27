@@ -2,7 +2,6 @@ import './App.css';
 
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-
 import { UserContext } from './contexts/UserContext';
 import Home from './pages/HomePage/Home';
 import Landing from './pages/LandingPage/Landing';
@@ -47,9 +46,6 @@ function App() {
   };
 
 
-  useEffect(()=> {
-    console.log(user);
-  }, [user])
 
   // make a new set link, show sets on home
 

@@ -86,8 +86,10 @@
     color: #115871;
 }
 #addButton:hover{
-    background-color: #115871;
+    background-color: orange;
     border: solid orange;
+
+    /* border: solid orange; */
     color: white;
 
 }

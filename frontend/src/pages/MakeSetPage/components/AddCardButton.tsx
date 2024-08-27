@@ -4,25 +4,23 @@ import "../styles/MakeSetStyles.css";
 
 
 
+// make prop interface or something
 
-const AddCardButton = ({addCard, setAddCard}: {addCard: null | boolean, setAddCard: any}) => {
+
+const AddCardButton = ({addCard, setAddCard}: {addCard: boolean | null, setAddCard: any}) => {
     const [hover, setHover] = useState(false);
 
     const handleHover = (e: any) => {
         if(e){
             e.type === "mouseover" ? setHover(true): setHover(false);
-            // console.log(e);
         }
 
     }
 
-    const handleAdd = () => {
-        addCard ? setAddCard(!addCard) : setAddCard(true);
-    }
-
+  
     
     return(
-        <div id="addButton" onMouseOver={handleHover} onMouseOut={handleHover} onClick={handleAdd}>
+        <div id="addButton" onMouseOver={handleHover} onMouseOut={handleHover} onClick={()=> setAddCard(!addCard)}>
             <p style={{fontWeight: 'bold', }}>Add FlashCard +</p>
                 {/* <AiOutlinePlusCircle 
                     size={50}

@@ -19,7 +19,7 @@ const SignIn = () => {
     }
   }, [submitted]);
   return (
-    <div style={{ marginTop: 75 }}>
+    <div >
       <SignUpBox
        
       />

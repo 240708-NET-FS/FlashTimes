@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
     Question: string;
     Answer: string;
   }
-  const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer}) => {
+  const FlashCard: React.FC<FlashCardProps> = ({FlashcardId, Question, Answer,}) => {
     const [isActive, setIsActive] = useState(false);
     // const [text, setText] = useState<string | undefined>(undefined);
     const[isFlipped, setIsFlipped] = useState(false);

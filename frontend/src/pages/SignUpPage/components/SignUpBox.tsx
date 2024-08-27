@@ -76,15 +76,16 @@ const SignUpBox = () => {
         <div>
           <h3>Sign Up</h3>
         </div>
+        <div style={{width: '100%', display: 'flex', padding: 5, alignContent: 'center'}}>
         <form onSubmit={handleSignUp} className="flex flex-col">
-          <input
-            className="textBox mb-2"
-            type="text"
-            placeholder="Enter First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
+            <input
+              className="textBox mb-2"
+              type="text"
+              placeholder="Enter First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
           <input
             className="textBox mb-2"
             type="text"
@@ -93,6 +94,7 @@ const SignUpBox = () => {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
+          <br />
           <input
             className="textBox mb-2"
             type="text"
@@ -111,6 +113,8 @@ const SignUpBox = () => {
           />
           <input className="submitBox" type="submit" value="Sign Up" />
         </form>
+        </div>
+
         <p className="pText">Already have an account?</p>
         <button onClick={() => navigate('/login')}>
           <b>

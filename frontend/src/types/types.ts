@@ -34,12 +34,46 @@ export interface UserResponseDTO {
   token: string; // JWT token
 }
 
+export interface UserDTO{
+  userId: number;
+  userName: string;
+  firstName: string;
+  lastName: string;
+}
 export interface Set {
   setId: number;
   setName: string;
   setLength: number;
-  userId: number; // The ID of the user who created this set
+  userId: number | undefined; // The ID of the user who created this set
   author?: User; // The user who created this set (optional, might be populated if needed)
+}
+
+
+export interface CreateSetDTO{
+  userId: number | undefined;
+  setName: string;
+}
+
+export interface SetDTOFlashCardDTO{
+  flashcardId: number;
+  question: string;
+  answer: string;
+  
+}
+
+export interface SetDTO{
+  setId: number;
+  setName: string;
+  setLength: number;
+  author?: UserDTO;
+  flashcards: null | SetDTOFlashCardDTO;
+
+}
+
+
+export interface UpdateSetDTO{
+  userId: number | undefined;
+  setName: string;
 }
 
 export interface FlashCard {
@@ -50,4 +84,19 @@ export interface FlashCard {
   userId: number; // The ID of the user who created this flashcard
   author?: User; // The user who created this flashcard (optional)
   set?: Set; // The set this flashcard belongs to (optional)
+}
+
+export interface FlashCardDTO{
+  flashcardId: number;
+  question: string;
+  answer: string;
+  setId: number;
+  userId: number;
+}
+
+export interface FlashCardDTORequest{
+  userId: number | undefined;
+  setId: number;
+  question: string;
+  answer: string;
 }
