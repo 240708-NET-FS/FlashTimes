@@ -74,8 +74,13 @@ const Home = () => {
 
 
   return(
-    <div>
-      <div >
+    <div style={{display: 'flex' , alignItems: 'center', flexDirection: 'column', }}>
+      
+      
+      <div style={{ width: '80%'}}>
+          <div style={{alignSelf: 'flex-start', textAlign: 'left'}}>
+            <h3>Recent Sets</h3>
+          </div>
         <SetsContainer sets={protoSets}/>
       </div>
     </div>

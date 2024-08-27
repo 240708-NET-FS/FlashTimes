@@ -1,19 +1,29 @@
 import React from "react";
+import "../styles/HomeStyles.css";
+import { useNavigate } from "react-router-dom";
 
 const SetBox = ({set}: {set: any}) => {
 
-    const boxStyle = {
-        width: 175,
-        height: 150,
-        backgroundColor: 'white',
-        borderRadius: 8
+    const navigate = useNavigate();
 
+
+    const handleClick = () => {
+        console.log("to the set page!");
+        navigate(`/set/${0}`);
     }
 
+   
+
     return(
-        <div style={boxStyle}>
-            <p style={{color: 'black'}}>{set.setName}</p>
+        <div className="setBox" onClick={handleClick}>
+            <div className="setTab">
+                <p className="setTabText">20 Cards</p>
+            </div>
+            <div className="setTextWrap">
+                <p className="setText" onClick={handleClick}>{set.setName}</p>
+            </div>
         </div>
+        
     )
 
 }

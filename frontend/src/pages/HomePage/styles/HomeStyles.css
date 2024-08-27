@@ -1,0 +1,63 @@
+
+.setBox{
+    position: relative;
+    width: 280px;
+    height: 125px;
+    background-color: white;
+    display: flex;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    border-width: 5px;
+    border-bottom: solid;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    /* align-items: flex-start; */
+    
+}
+
+.setBox:hover{
+   
+    border-bottom: solid orange;
+    border-width: 5px;
+
+}
+
+.setTextWrap{
+    display: flex;
+    padding-top: 10px;
+}
+
+.setText{
+    position: relative;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.setText:hover{
+    color:grey;
+    cursor: pointer;
+}
+
+.setTab{
+    position:relative;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #94bdde;
+    height: 30px;
+    /* top: 0;
+    right: 0; */
+    margin: -15px;
+    display: inline;
+    text-align: right;
+    padding-right: 10px;
+
+}
+
+.setTabText{
+    color: #115871;
+    font-size: large;
+    font-weight: bold;
+
+}
