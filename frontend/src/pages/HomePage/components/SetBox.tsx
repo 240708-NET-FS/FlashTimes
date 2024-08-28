@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "contexts/UserContext";
 
 const SetBox = ({set}: {set: any}) => {
+    // TODO: remove set on click
 
     const navigate = useNavigate();
     

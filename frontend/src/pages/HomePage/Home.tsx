@@ -10,58 +10,7 @@ const Home = () => {
 
 
   // for UI prototype
-  const protoSets:any[] = [
-    {
-      setId: 1,
-      setName: "set1",
-      setLength: 5,
-      author: user,
-      cards: []
 
-    },
-    {
-      setId: 2,
-      setName: "set2",
-      setLength: 5,
-      author: user,
-      cards: []
-
-    },
-    {
-      setId: 3,
-      setName: "set3",
-      setLength: 5,
-      author: user,
-      cards: []
-
-    },
-    {
-      setId: 4,
-      setName: "set4",
-      setLength: 5,
-      author: user,
-      cards: []
-
-    },
-    {
-      setId: 5,
-      setName: "set5",
-      setLength: 5,
-      author: user,
-      cards: []
-
-    },
-    {
-      setId: 6,
-      setName: "set6",
-      setLength: 5,
-      author: user,
-      cards: []
-
-    }
-
-
-  ];
 
   return(
     <div style={{display: 'flex' , alignItems: 'center', flexDirection: 'column', }}>

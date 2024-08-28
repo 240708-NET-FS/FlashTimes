@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { SetDTO } from "types/types";
-import SetGallery from "./components/SetGallery";
 import SetCarousel from "./components/SetCarousel";
 import { getSetById } from "@services/SetService";
 
@@ -38,7 +37,7 @@ const SetPage = () => {
 
  
     return(
-        <div style={{display: 'inherit', width: '100%', border: 'solid red',  justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{display: 'inherit', width: '100%',  justifyContent: 'center', alignItems: 'center'}}>
             <div style={{display: 'flex',}}>
             
             {loading ? <div><h2>Loading...</h2></div>:

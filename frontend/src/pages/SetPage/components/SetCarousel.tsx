@@ -61,11 +61,11 @@ const SetCarousel = ({set,cards, currentCard}: {set: SetDTO | null | undefined, 
                     <h2>Loading...</h2>
                 </div>
                 :
-                <div style={{width: '100%', border: 'solid red', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                <div style={{width: '100%',display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <div id="cardHolder" style={{display: 'flex', flexDirection: 'row',  }}>
                         {mapCard}
                     </div>
-                    <div style={{width: '100%',  border: 'solid red',}}>
+                    <div style={{width: '100%'}}>
                         <div style={{height: 75, display: 'flex', flexDirection: 'row',alignItems: 'center'}}>
                             <div style={{width: '33%'}}>
                                 <button className="controlButton" disabled={backDisabled} onClick={handleBack}>
