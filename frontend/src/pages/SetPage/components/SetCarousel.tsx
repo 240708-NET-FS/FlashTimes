@@ -1,6 +1,5 @@
 import FlashCard from "pages/globalComponents/FlashCard";
 import React, {useEffect, useState} from "react";
-import ReactDOM from "react-dom";
 import { AiOutlineLeftCircle, AiOutlineRightCircle } from "react-icons/ai";
 import { useLocation, useParams } from "react-router-dom";
 import { FlashCardDTO, SetDTOFlashCardDTO, SetDTO } from "types/types";
