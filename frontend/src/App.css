@@ -55,8 +55,8 @@ p {
 textarea {
   border: none;
   font-size: large;
-  width: 450px;
-  height: 200px;
+  text-align: center;
+  display: flex;
   overflow: auto;
   resize: none;
 }

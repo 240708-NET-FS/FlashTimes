@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FlashCardSet from '../LandingPage/FlashCardSet';
+import "./globalStyles.css";
 
   // this comment is so I can do things
 
@@ -33,19 +34,7 @@ import FlashCardSet from '../LandingPage/FlashCardSet';
     };
   
   const cardStyle = {
-    width: 450,
-    height: 250,
-    backgroundColor: 'white',
-    color: 'black',
-    padding: 20,
-    borderRadius: 5,
-    textAlign: 'left' as const,
-    display: 'flex',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#cfe8ef',
-    overflow: 'hidden',
-    cursor: 'pointer'
+   
   };
 
 
@@ -55,16 +44,19 @@ import FlashCardSet from '../LandingPage/FlashCardSet';
 
  
   return (
-    <div style={cardStyle} onClick={handleFlip}>  
+    <div className="cardStyle" onClick={handleFlip}>  
       <div>
         {!isFlipped ? (
           <textarea
+            
+            className='cardText'
             placeholder="Type your question here..."
             value={questionText}
             onChange={(e: any) => setQuestionText(e.target.value)}
           />
         ) : (
           <textarea
+            className='cardText'
             placeholder="Type your answer here..."
             value={answerText}
             onChange={(e: any) => setAnswerText(e.target.value)}

@@ -19,7 +19,6 @@ const SetCarousel = ({set,cards, currentCard}: {set: SetDTO | null | undefined, 
     const [nextDisabled, setNextDisabled] = useState(false);
 
     useEffect(()=> {
-        console.log(currentIndex);
         currentIndex === 0 ? setBackDisabled(true) : setBackDisabled(false);
         currentIndex === setLength - 1 ? setNextDisabled(true) : setNextDisabled(false);
 

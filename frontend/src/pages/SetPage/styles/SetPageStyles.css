@@ -1,6 +1,5 @@
 .galleryWrap{
     /* display: flex; */
-    border: solid red;
     justify-content: center;
     align-items: center;
 
@@ -23,5 +22,9 @@
     border: none;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+
+.editButton{
     cursor: pointer;
 }
