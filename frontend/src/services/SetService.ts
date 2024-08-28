@@ -33,3 +33,13 @@ export const getSets = async(): Promise<SetDTO[]> => {
     }
 
 }
+
+export const getSetById = async(id: number):Promise<SetDTO> =>{
+    try{
+        const response = await axios.get<SetDTO>(server + 'api/Sets/' + id);
+        return response.data;
+    }catch(error){
+        throw new Error('Getting set failed: ' + (error as any).response?.data?.message || 'Unknown error');
+
+    }
+}

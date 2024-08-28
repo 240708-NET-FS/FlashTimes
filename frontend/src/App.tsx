@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from './contexts/UserContext';
 import Home from './pages/HomePage/Home';
 import Landing from './pages/LandingPage/Landing';
@@ -45,6 +45,8 @@ function App() {
       navTitle.style.backgroundColor = e.type === 'mouseover' ? '#94bdde' : 'transparent';
     }
   };
+
+  let {setId} = useParams(); 
 
 
 
@@ -135,7 +137,7 @@ function App() {
               <Route path="/home/:username" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/make-a-set" element={<MakeSet />} />
-              <Route path="/set/:setName" element={<SetPage />} />
+              <Route path="/set/:setId" element={<SetPage />} />
             </Routes>
           </div>
         </header>

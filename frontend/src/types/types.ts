@@ -66,7 +66,7 @@ export interface SetDTO{
   setName: string;
   setLength: number;
   author?: UserDTO;
-  flashcards: null | SetDTOFlashCardDTO;
+  flashcards: null | SetDTOFlashCardDTO[];
 
 }
 

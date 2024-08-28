@@ -10,24 +10,26 @@ import FlashCardSet from '../LandingPage/FlashCardSet';
     FlashcardId: number;
     Question: string;
     Answer: string;
-    updateCard: (FlashCardId: number, Question: string, Answer: string) => Promise<void>;
-    deleteCard: (FlashCardId: number) => void;
+    // updateCard: (FlashCardId: number, Question: string, Answer: string) => Promise<void>;
+    // deleteCard: (FlashCardId: number) => void;
   }
-  const FlashCard: React.FC<FlashCardProps> = ({ FlashcardId, Question, Answer, updateCard, deleteCard }) => {
+  const FlashCard: React.FC<FlashCardProps> = ({ FlashcardId, Question, Answer}) => {
     const [questionText, setQuestionText] = useState<string>(Question);
     const [answerText, setAnswerText] = useState<string>(Answer);
     const [isFlipped, setIsFlipped] = useState(false);
+
+ 
   
     const handleFlip = () => {
       setIsFlipped(!isFlipped);
     };
   
     const handleUpdate = () => {
-      updateCard(FlashcardId, questionText, answerText);
+      // updateCard(FlashcardId, questionText, answerText);
     };
   
     const handleDelete = () => {
-      deleteCard(FlashcardId);
+      // deleteCard(FlashcardId);
     };
   
   const cardStyle = {
@@ -43,6 +45,7 @@ import FlashCardSet from '../LandingPage/FlashCardSet';
     borderWidth: 2,
     borderColor: '#cfe8ef',
     overflow: 'hidden',
+    cursor: 'pointer'
   };
 
 

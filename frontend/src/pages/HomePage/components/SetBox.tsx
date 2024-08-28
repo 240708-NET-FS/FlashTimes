@@ -6,11 +6,12 @@ import { UserContext } from "contexts/UserContext";
 const SetBox = ({set}: {set: any}) => {
 
     const navigate = useNavigate();
+    
 
 
     const handleClick = () => {
         console.log("Navigating to set page...");
-        navigate(`/set/${set.setName}`);
+        navigate(`/set/${set.setId}`);
     }
 
     return(
