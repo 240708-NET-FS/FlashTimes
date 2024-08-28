@@ -6,6 +6,7 @@ import { getSets } from "@services/SetService";
 import { filterSetsById } from "utilities/helpers";
 import { SetDTO } from "types/types";
 import { deleteSet } from "@services/SetService";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const SetsContainer = () => {
@@ -13,6 +14,11 @@ const SetsContainer = () => {
     const {user} = useContext(UserContext);
     const [sets, setSets] = useState<null | SetDTO[]>(null);
     const [loading, setLoading] = useState<null | boolean>(null);
+    const [pageLoaded, setPageLoaded] = useState(false);
+
+    
+
+
 
     useEffect(()=> {
         if(user){
@@ -20,6 +26,7 @@ const SetsContainer = () => {
                 try{
                     setLoading(true);
                     const response = await getSets();
+                    console.log(response);
                     // see if possible to get an endpoint for this from backend 
                     const filteredResponse = filterSetsById(user.userId, response); 
                     setSets(filteredResponse);
@@ -31,8 +38,6 @@ const SetsContainer = () => {
     
             fetchSets();
         }
-        
-
     }, [])
 
 

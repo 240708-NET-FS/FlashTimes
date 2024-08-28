@@ -100,3 +100,11 @@ export interface FlashCardDTORequest{
   question: string;
   answer: string;
 }
+
+export interface UpdateFlashCardRequestDTO{
+  userId: number | undefined;
+  setId: number;
+  question: string;
+  answer: string;
+
+}

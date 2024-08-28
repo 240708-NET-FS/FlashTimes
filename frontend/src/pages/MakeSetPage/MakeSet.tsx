@@ -48,7 +48,8 @@ const MakeSet = () => {
             console.log("Adding all the cards...");
             addAllCardsToSet(response.setId);
             // navigate to set page
-            navigate(`/set/${response.setName}`);
+            navigate(`/home/${user?.userId}`);
+            // navigate(`/set/${response.setId}`);
         }catch(error){
             console.error(error);
         }
@@ -70,6 +71,7 @@ const MakeSet = () => {
     const addBlankCard = () =>{
         console.log("should only add on click...");
         setAddCardTrigger(addCardTrigger + 1); //triggers the change state (probably a better way to do this, but I digress)
+
         let temp = blankCardList.slice();
         console.log(temp);
         cardIdRef.current +=1;

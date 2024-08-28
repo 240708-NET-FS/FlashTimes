@@ -10,6 +10,7 @@ import SignUp from './pages/SignUpPage/SignIn';
 import MakeSet from 'pages/MakeSetPage/MakeSet';
 import { UserResponseDTO } from './types/types';
 import SetPage from 'pages/SetPage/SetPage';
+import EditPage from 'pages/EditPage/EditPage';
 
 // export const UserContext = React.createContext<null | any>('');
 
@@ -138,6 +139,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/make-a-set" element={<MakeSet />} />
               <Route path="/set/:setId" element={<SetPage />} />
+              <Route path="/edit-set/:setId" element={<EditPage />} />
             </Routes>
           </div>
         </header>

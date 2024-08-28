@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import FlashCardSet from '../LandingPage/FlashCardSet';
 import "./globalStyles.css";
+import { AiOutlineClose } from 'react-icons/ai';
+import { deleteFlashCard } from '@services/FlashCardService';
 
   // this comment is so I can do things
 
@@ -30,6 +32,7 @@ import "./globalStyles.css";
     };
   
     const handleDelete = () => {
+     
       // deleteCard(FlashcardId);
     };
   
@@ -46,6 +49,13 @@ import "./globalStyles.css";
   return (
     <div className="cardStyle" onClick={handleFlip}>  
       <div>
+        {/* <div>
+          <AiOutlineClose
+            size={32}
+            color="black"
+            onClick={handleDelete}
+            />
+        </div> */}
         {!isFlipped ? (
           <textarea
             

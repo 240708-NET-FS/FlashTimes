@@ -5,21 +5,14 @@ import {AiFillCloseSquare} from "react-icons/ai";
 
 
 const BlankCard = ({index, card, updateCards}:{index: number, card: any, updateCards: any}) => {
-    const [question, setQuestion] = useState<string>("");
-    const [answer, setAnswer] = useState<string>("");
+    const [question, setQuestion] = useState<string>(card.question);
+    const [answer, setAnswer] = useState<string>(card.answer);
 
     
-  
-
-
     useEffect(()=> {
         card.question = question;
         card.answer = answer;
     }, [question, answer]);
-
-
- 
-
 
 
 

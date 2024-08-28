@@ -10,8 +10,6 @@ const SetBox = ({set, handleRemove}: {set: any, handleRemove:any}) => {
 
     const navigate = useNavigate();
 
-   
-
 
     const handleClick = () => {
         console.log("Navigating to set page...");
