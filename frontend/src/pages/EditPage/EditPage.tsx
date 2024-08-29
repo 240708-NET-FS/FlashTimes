@@ -17,17 +17,18 @@ const EditPage = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [disabled, setDisabled] = useState(true);
     const [cards, setCards] = useState<any>([]);
-    const [cardsLength, setCardsLength] = useState<number>(0);
-    const [cardsCopy, setCardsCopy] = useState<any>([]);
-    const [deleteCards, setDeleteCards] = useState<number[]>([]);
+    const [cardsLength, setCardsLength] = useState<number | undefined>(0);// keeps track of the length, probably could use useRef instead (I digress)
 
-    const [newCards, setNewCards] = useState<any>([]);
+    
+    const [deleteCards, setDeleteCards] = useState<number[]>([]);// list of ids of cards to be deleted
+    const [newCards, setNewCards] = useState<any>([]); //all the new cards added to set
+
     const [title, setTitle] = useState<any>("");
 
     const [addCardTrigger, setAddCardTrigger] = useState(0);
     const [removeCardTrigger, setRemoveCardTrigger] = useState(0);
 
-    const cardIdRef = useRef(0);
+    const cardIdRef = useRef<number>(0);
     const navigate = useNavigate();
 
 
@@ -40,7 +41,7 @@ const EditPage = () => {
                     setSet(response);
                     setCards(response.flashcards);
                     setCardsLength(response?.flashcards?.length);
-                    cardIdRef.current = response.flashcards[response.flashcards.length - 1].flashcardId;
+                    cardIdRef.current = response?.flashcards[response?.flashcards.length - 1].flashcardId;
                     setTitle(response.setName);
                     setLoading(false);
                 }catch(error){
@@ -68,8 +69,8 @@ const EditPage = () => {
             await updateTitle();
             await updateOldCards();
             deleteCards.length > 0 ? await deleteAllClickedCards() : null;
-            await addAllCardsToSet(parseInt(setId));
-            navigate(`/set/${parseInt(setId)}`);
+            setId ? await addAllCardsToSet(parseInt(setId)): null;
+            setId ? navigate(`/set/${parseInt(setId)}`): null;
         }catch(error){
             console.error(error);
         }
@@ -79,8 +80,11 @@ const EditPage = () => {
 
     const updateTitle = async()=> {
         try{
-            const newSet: UpdateSetDTO = {setName: title, userId: user?.userId}
-            const response = await updateSet(parseInt(setId), newSet);
+            if(setId){
+                const newSet: UpdateSetDTO = {setName: title, userId: user?.userId}
+                const response = await updateSet(parseInt(setId), newSet);
+            }
+           
         }catch(error){
             console.error(error);
 
@@ -90,10 +94,13 @@ const EditPage = () => {
     // updates every old card, regardless of change
     const updateOldCards = async()=> {
         for(let i=0; i < cards.length;i++){
-            const card: UpdateFlashCardRequestDTO = {userId: user?.userId, setId: parseInt(setId), question: cards[i].question, answer: cards[i].answer }
-            console.log('Updating the card...');
-            const response = await updateFlashCard(cards[i].flashcardId, card);
-            console.log('Updated card successfully');
+            if(setId){
+                const card: UpdateFlashCardRequestDTO = {userId: user?.userId, setId: parseInt(setId), question: cards[i].question, answer: cards[i].answer }
+                console.log('Updating the card...');
+                const response = await updateFlashCard(cards[i].flashcardId, card);
+                console.log('Updated card successfully');
+            }
+            
 
         }
 
@@ -145,7 +152,7 @@ const EditPage = () => {
                 temp.push(card.flashcardId);
                 setDeleteCards(temp);
 
-                setCardsLength(cardsLength - 1);
+                cardsLength ? setCardsLength(cardsLength - 1): null;
 
                 // "remove" card from cards
                 // let newTemp = cards.filter((c:any) => c !== card);

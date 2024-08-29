@@ -26,8 +26,17 @@ const MakeSet = () => {
         answer: ""
     }
 
+    const defaultCard2 = {
+        flashCardId: 1, //not in DTO, but makes easier to remove (not included when added)
+        userId: user?.userId,
+        setId: 0, //changed when set created
+        question: "",
+        answer: ""
+
+    }
+
     // default card
-    const [blankCardList, setBlankCardList] = useState<any[]>([defaultCard]);
+    const [blankCardList, setBlankCardList] = useState<any[]>([defaultCard, defaultCard2]);
 
 
 
@@ -46,10 +55,10 @@ const MakeSet = () => {
             const newSet: CreateSetDTO = {userId: user?.userId , setName: title};
             const response = await createNewSet(newSet);
             console.log("Adding all the cards...");
-            addAllCardsToSet(response.setId);
+            await addAllCardsToSet(response.setId);
             // navigate to set page
-            navigate(`/home/${user?.userId}`);
-            // navigate(`/set/${response.setId}`);
+            // navigate(`/home/${user?.userId}`);
+            navigate(`/set/${response.setId}`);
         }catch(error){
             console.error(error);
         }
@@ -71,7 +80,6 @@ const MakeSet = () => {
     const addBlankCard = () =>{
         console.log("should only add on click...");
         setAddCardTrigger(addCardTrigger + 1); //triggers the change state (probably a better way to do this, but I digress)
-
         let temp = blankCardList.slice();
         console.log(temp);
         cardIdRef.current +=1;
