@@ -3,6 +3,7 @@ import React from 'react';
 import { describe, expect, it } from 'vitest';
 
 import App from '../App';
+import { BrowserRouter } from 'react-router-dom';
 
 /**
  * @vitest-environment jsdom
@@ -10,7 +11,7 @@ import App from '../App';
 
 describe('App page', () => {
   it('renders page', () => {
-    render(<App />);
+    render(<BrowserRouter><App /></BrowserRouter>);
 
     expect(screen.getByTestId('app-page')).toBeTruthy();
   });
