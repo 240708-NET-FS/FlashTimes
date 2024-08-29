@@ -6,7 +6,7 @@ import server from './server';
 // Register a user
 export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegistrationResponseDTO> => {
   try {
-    const response = await axios.post<UserRegistrationResponseDTO>(server + 'api/Users/register', user);
+    const response = await axios.post<UserRegistrationResponseDTO>(server + 'api/users/register', user);
     return response.data;
   } catch (error) {
     throw new Error('Registration failed: ' + (error as any).response?.data?.message || 'Unknown error');
@@ -16,7 +16,7 @@ export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegis
 // Login a user
 export const loginUser = async (credentials: { userName: string; password: string }): Promise<UserResponseDTO> => {
   try {
-    const response = await axios.post<UserResponseDTO>(server + 'api/Auth/login', credentials);
+    const response = await axios.post<UserResponseDTO>(server + 'api/auth/login', credentials);
     return response.data;
   } catch (error) {
     throw new Error('Login failed: ' + (error as any).response?.data?.message || 'Unknown error');
@@ -26,7 +26,7 @@ export const loginUser = async (credentials: { userName: string; password: strin
 
 export const logout = async() => {
   try{
-    const response = await axios.post(server + 'api/Auth/logout');
+    const response = await axios.post(server + 'api/auth/logout');
     return response.data;
   }catch(error){
     throw new Error('Logout failed: ' + (error as any).response?.data?.message || 'Unknown error');
@@ -36,7 +36,7 @@ export const logout = async() => {
 
 export const getUserEntity = async(id: number)=>{
   try{
-    const response = await axios.get<User>(server + 'api/Users/' + id);
+    const response = await axios.get<User>(server + 'api/users/' + id);
     return response.data;
   }catch(error){
     throw new Error('Getting user failed: ' + (error as any).response?.data?.message || "Unknown error");
