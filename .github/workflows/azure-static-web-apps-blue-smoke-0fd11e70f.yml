@@ -19,6 +19,18 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+        # Install dependencies
+      - name: Install Dependencies
+        run: yarn
+        working-directory: ./frontend
+
+        # Run tests
+      - name: Run Tests
+        run: yarn test
+        working-directory: ./frontend
+
+        # Build and deploy
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
