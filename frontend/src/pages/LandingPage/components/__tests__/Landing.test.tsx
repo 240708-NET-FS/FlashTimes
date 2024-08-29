@@ -1,7 +1,7 @@
 // Landing.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { describe, test, expect, it, jest } from "@jest/globals";
+import { describe, test, expect } from 'vitest';
 
 import '@testing-library/jest-dom/extend-expect'; // for better assertions
 import Landing from 'pages/LandingPage/Landing';
