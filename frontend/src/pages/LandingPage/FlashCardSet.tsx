@@ -82,8 +82,8 @@ const FlashCardSet: React.FC<{ setId: number }> = ({ setId }) => {
           FlashcardId={card.FlashcardId}
           Question={card.question}
           Answer={card.answer}
-          updateCard={updateFlashCard}
-          deleteCard={deleteCard} // delete function
+          // updateCard={updateFlashCard}
+          // deleteCard={deleteCard} // delete function
         />
       ))}
       <button onClick={addCard}>Add Flashcard</button>

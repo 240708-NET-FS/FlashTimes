@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FlashCardSet from '../LandingPage/FlashCardSet';
 import "./globalStyles.css";
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineRedo } from 'react-icons/ai';
 import { deleteFlashCard } from '@services/FlashCardService';
 
   // this comment is so I can do things
@@ -25,6 +25,7 @@ import { deleteFlashCard } from '@services/FlashCardService';
   
     const handleFlip = () => {
       setIsFlipped(!isFlipped);
+     
     };
   
     const handleUpdate = () => {
@@ -35,47 +36,40 @@ import { deleteFlashCard } from '@services/FlashCardService';
      
       // deleteCard(FlashcardId);
     };
+
   
-  const cardStyle = {
-   
-  };
 
-
-  // useEffect(()=> {
-  //     console.log(text);
-  // }, [text])
-
- 
   return (
-    <div className="cardStyle" onClick={handleFlip}>  
+    <div className="cardStyle" > 
+      <div className='flipIcon' >
+        <AiOutlineRedo
+          onClick={handleFlip}
+          size={32}
+          color={'rgba(0, 0, 0, .45)'}
+          />
+      </div>
+  
       <div>
-        {/* <div>
-          <AiOutlineClose
-            size={32}
-            color="black"
-            onClick={handleDelete}
-            />
-        </div> */}
-        {!isFlipped ? (
-          <textarea
-            
+        
+        {!isFlipped ? 
+          <textarea 
             className='cardText'
             placeholder="Type your question here..."
             value={questionText}
             onChange={(e: any) => setQuestionText(e.target.value)}
           />
-        ) : (
+         : 
           <textarea
             className='cardText'
             placeholder="Type your answer here..."
             value={answerText}
             onChange={(e: any) => setAnswerText(e.target.value)}
           />
-        )}
+        }
       </div>
       
       {/* Update and Delete buttons */}
-      <button 
+      {/* <button 
         style={{ position: 'absolute', bottom: 10, left: 10 }} 
         onClick={handleUpdate}
       >
@@ -86,7 +80,7 @@ import { deleteFlashCard } from '@services/FlashCardService';
         onClick={handleDelete}
       >
         Delete
-      </button>
+      </button> */}
     </div>
   );
 };

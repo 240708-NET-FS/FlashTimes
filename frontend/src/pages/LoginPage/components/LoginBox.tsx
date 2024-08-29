@@ -38,13 +38,7 @@ const LoginBox = ({
 
   const navigate = useNavigate();
 
-  const validateText = () => {
-    if (username.length === 0 || password.length === 0) {
-      alert('Invalid input! Please re-enter information!');
-    } else {
-      setSubmitted(true);
-    }
-  };
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +72,7 @@ const LoginBox = ({
               <input className="textBox" type="password" placeholder="Enter Password: " value={password} onChange={(e) => setPw(e.target.value)} />
             </div>
             <div style={{ padding: 2 }}>
-              <input className="submitBox" type="submit" value="Login" />
+              <input className="submitBox"  style={{cursor: 'pointer'}} type="submit" value="Login" />
             </div>
           </form>
         </div>
