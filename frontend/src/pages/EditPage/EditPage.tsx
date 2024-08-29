@@ -17,6 +17,10 @@ const EditPage = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [disabled, setDisabled] = useState(true);
     const [cards, setCards] = useState<any>([]);
+    const [cardsLength, setCardsLength] = useState<number>(0);
+    const [cardsCopy, setCardsCopy] = useState<any>([]);
+    const [deleteCards, setDeleteCards] = useState<number[]>([]);
+
     const [newCards, setNewCards] = useState<any>([]);
     const [title, setTitle] = useState<any>("");
 
@@ -35,6 +39,7 @@ const EditPage = () => {
                     const response = await getSetById(parseInt(setId));
                     setSet(response);
                     setCards(response.flashcards);
+                    setCardsLength(response?.flashcards?.length);
                     cardIdRef.current = response.flashcards[response.flashcards.length - 1].flashcardId;
                     setTitle(response.setName);
                     setLoading(false);
@@ -50,14 +55,11 @@ const EditPage = () => {
 
 
     useEffect(()=> {
-        title.length > 0 && cards.length > 0 ? setDisabled(false) : setDisabled(true);
+        title.length > 0 && (cards.length > 0 || newCards.length > 0) ? setDisabled(false) : setDisabled(true);
     }, [title])
 
 
-    useEffect(()=> {
-        console.log(cards);
-    }, [cards])
-
+   
 
 
     const updateTheSet = async() => {
@@ -65,6 +67,7 @@ const EditPage = () => {
         try{
             await updateTitle();
             await updateOldCards();
+            deleteCards.length > 0 ? await deleteAllClickedCards() : null;
             await addAllCardsToSet(parseInt(setId));
             navigate(`/set/${parseInt(setId)}`);
         }catch(error){
@@ -78,9 +81,6 @@ const EditPage = () => {
         try{
             const newSet: UpdateSetDTO = {setName: title, userId: user?.userId}
             const response = await updateSet(parseInt(setId), newSet);
-
-            // console.log(response);
-
         }catch(error){
             console.error(error);
 
@@ -93,9 +93,17 @@ const EditPage = () => {
             const card: UpdateFlashCardRequestDTO = {userId: user?.userId, setId: parseInt(setId), question: cards[i].question, answer: cards[i].answer }
             console.log('Updating the card...');
             const response = await updateFlashCard(cards[i].flashcardId, card);
-            console.log(response);
             console.log('Updated card successfully');
 
+        }
+
+    }
+
+    const deleteAllClickedCards = async() => {
+        for(let i=0; i < deleteCards.length;i++){
+            console.log('Deleting card by id...');
+            const response = await deleteFlashCard(deleteCards[i]);
+            console.log('Deleted card successfully');
         }
 
     }
@@ -118,7 +126,6 @@ const EditPage = () => {
         cardIdRef.current += 1;
         const newDefault = {userId: user?.userId, setId: parseInt(setId), question: "", answer: "", flashcardId: cardIdRef};
         temp.push(newDefault);
-        console.log(temp);
         setNewCards(temp);
         
     }
@@ -129,47 +136,57 @@ const EditPage = () => {
     const removeACard = async (card: any) => {
         console.log("removing a card...");
         setRemoveCardTrigger(removeCardTrigger + 1);
-        if(cards.length - 1 > 0 || newCards.length - 1 > 0){
+        if(cardsLength + newCards.length > 2){
             // find card from old and new list
             if(findCard(card)){
-                let temp = cards.filter((c: any) => c !== card);
-                setCards(temp);
-                // console.log(cards.indexOf(card));
-                // cards.splice(cards.indexOf(card), 1);
+                // add ID to list of IDs to delete
+
+                let temp = deleteCards.slice();
+                temp.push(card.flashcardId);
+                setDeleteCards(temp);
+
+                setCardsLength(cardsLength - 1);
+
+                // "remove" card from cards
+                // let newTemp = cards.filter((c:any) => c !== card);
+                // await setCards(newTemp);
+                // // newTemp.splice(newTemp.indexOf(card), 1);
+                // console.log(newTemp);
+                // console.log(temp.indexOf(card));
+                // temp.splice(temp.indexOf(card), 1);
+                // temp.splice(temp.indexOf(card), 1)
                 
-                await deleteCard(card.flashcardId);
             }else{
                 let temp = newCards.filter((c: any) => c !== card);
                 setNewCards(temp);
                 // setNewCards(temp);
             }
         }else{
-            alert('Must have at least 1 card in set!');
+            alert('Must have at least 2 cards in  a set!');
         }
 
     }
 
-    const deleteCard = async(id: number) => {
-        try{
-            const response = await deleteFlashCard(id);
-            console.log(response);
-        }catch(error){
-            console.error(error);
-        }
 
-    }
 
     const findCard = (card: any) => {
         return cards.find((c:any)=> c.flashcardId === card.flashcardId);   
     }
 
-    const spawnCards = cards.map((c:any, index: number) =>
+    const findInDelete = (id: number) => {
+        return deleteCards.find(cId => cId === id)
+    }
 
+    const spawnCards = cards.map((c:any, index: number) =>
+        !findInDelete(c.flashcardId) ?
         <div style={{display: 'flex', paddingBottom: 5}}>
             <BlankCard index={index} card={c} updateCards={removeACard}/>
         </div>
+        : null
     
     )
+
+   
 
     const spawnNewCards = newCards.map((c: any, index: number) => 
         <div style={{display: 'flex', paddingBottom: 5}}>

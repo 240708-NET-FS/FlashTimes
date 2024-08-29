@@ -91,11 +91,11 @@ const MakeSet = () => {
         console.log("should remove a card...");
         setRemoveCardTrigger(removeCardTrigger + 1);
 
-        if(blankCardList.length - 1 > 0){
+        if(blankCardList.length - 1 > 1){
             let temp = blankCardList.splice(blankCardList.indexOf(card), 1) //this works somehow 
         }
         else{
-            alert("Need at least 1 card to create a set!");
+            alert("Need at least 2 cards to create a set!");
         }
     }
 

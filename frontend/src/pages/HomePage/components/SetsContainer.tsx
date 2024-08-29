@@ -87,6 +87,7 @@ const SetsContainer = () => {
             {loading ? <div><p>Loading...</p></div>:
             
             sets ?
+                sets.length > 0 ?
                 <div>
                     <div style={{alignSelf: 'flex-start', textAlign: 'left'}}>
                         <h3>Recent Sets</h3>
@@ -94,11 +95,13 @@ const SetsContainer = () => {
                     <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center'}} >
                             {mapSets}
                     </div>
-                </div>
-            :
+                </div>:
                 <div >
-                    Create a set today!
-                </div>
+                Create a set today!
+            </div>
+            :
+            null
+                
             
         }
 
