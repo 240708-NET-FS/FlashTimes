@@ -7,7 +7,7 @@ const Landing = () => {
     <div>
       <header></header>
       <main>
-        <FlashCard />
+        <FlashCard FlashcardId={0} Question='' Answer='' />
         {/* sample card */}
       </main>
     </div>

@@ -41,7 +41,7 @@ const EditPage = () => {
                     setSet(response);
                     setCards(response.flashcards);
                     setCardsLength(response?.flashcards?.length);
-                    cardIdRef.current = response?.flashcards[response?.flashcards.length - 1].flashcardId;
+                    response && response.flashcards ? cardIdRef.current = response.flashcards[response?.flashcards.length - 1].flashcardId: null;
                     setTitle(response.setName);
                     setLoading(false);
                 }catch(error){
@@ -131,7 +131,7 @@ const EditPage = () => {
         setAddCardTrigger(addCardTrigger + 1);
         let temp = newCards.slice();
         cardIdRef.current += 1;
-        const newDefault = {userId: user?.userId, setId: parseInt(setId), question: "", answer: "", flashcardId: cardIdRef};
+        const newDefault = setId ? {userId: user?.userId, setId: parseInt(setId), question: "", answer: "", flashcardId: cardIdRef} : null;
         temp.push(newDefault);
         setNewCards(temp);
         
