@@ -36,7 +36,7 @@ export const getSets = async(): Promise<SetDTO[]> => {
 
 export const getSetById = async(id: number):Promise<SetDTO> =>{
     try{
-        const response = await axios.get<SetDTO>(server + 'api/sets/' + id);
+        const response = await axios.get<SetDTO>(server + 'api/Sets/' + id);
         return response.data;
     }catch(error){
         throw new Error('Getting set failed: ' + (error as any).response?.data?.message || 'Unknown error');
@@ -47,11 +47,11 @@ export const getSetById = async(id: number):Promise<SetDTO> =>{
 
 export const deleteSet = async(id: number) => {
     try{
-        const response = await axios.delete(server + 'api/sets/' + id);
+        const response = await axios.delete(server + 'api/Sets/' + id);
         return response.data;
 
     }catch(error){
-        throw new Error('Removing set failed: ' + (error as any).response?.data?.message || 'Uknown error');
+        throw new Error('Removing set failed: ' + (error as any).response?.data?.message || 'Unknown error');
 
     }
 
