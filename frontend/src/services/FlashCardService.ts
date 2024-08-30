@@ -7,7 +7,7 @@ import { FlashCard, FlashCardDTORequest } from "types/types";
 
 export const addFlashCard = async (card: FlashCardDTORequest) => {
     try{
-        const response = await axios.post(server + 'FlashCards', card);
+        const response = await axios.post(server + 'api/FlashCards', card);
         return response.data;
 
     }catch(error){
