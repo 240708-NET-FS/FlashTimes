@@ -7,7 +7,7 @@ import server from './server';
 // Register a user
 export const registerUser = async (user: UserRegistrationDTO): Promise<UserRegistrationResponseDTO> => {
   try {
-    const response = await axios.post<UserRegistrationResponseDTO>(server + 'api/Users/register', );
+    const response = await axios.post<UserRegistrationResponseDTO>(server + 'api/Users/register', user );
     return response.data;
   } catch (error) {
     throw new Error('Registration failed: ' + (error as any).response?.data?.message || 'Unknown error');
